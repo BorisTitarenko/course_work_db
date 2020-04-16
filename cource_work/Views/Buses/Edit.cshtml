@@ -1,0 +1,46 @@
+﻿@model Bus
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bus</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BusId" />
+            <div class="form-group">
+                <label class="control-label">Модель</label>
+                <input asp-for="BusModel" class="form-control" />
+                <span asp-validation-for="BusModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Сидячих</label>
+                <input asp-for="SitingNumber" class="form-control" />
+                <span asp-validation-for="SitingNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Клімат контроль</label>
+                <input asp-for="ClimateControl" class="form-control" />
+                <span asp-validation-for="ClimateControl" class="text-danger"></span>
+            </div>
+             <input hidden asp-for="CcId" class="form-control" value=@Model.CcId></input>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

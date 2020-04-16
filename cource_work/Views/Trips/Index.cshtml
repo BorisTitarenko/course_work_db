@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Trip>
+
+@{
+    ViewData["Title"] = "View";
+    ViewData["employeeName"] = "Vasya Pupkin";
+
+}
+@functions{
+    public string routeRepresentation(string startPoint, string endPoint)
+    {
+        return String.Format("{0} - {1}", startPoint, endPoint);
+    }
+}
+
+    <h2>Рейси на  @Model.First().DeportingDate.Value.ToLongDateString() - @Model.Last().DeportingDate.Value.ToLongDateString()</h2>
+
+<div class="form-group">
+   
+    <div class="row">
+        <div class="col">
+            <form asp-controller="Trips" asp-action="Search" method="get">
+                <input name="ss" placeholder="Стрічка">
+                <input type="submit" value="Шукати" class="btn btn-success" />
+            </form>
+        </div>
+        <div class="col">
+            <form asp-controller="Trips" asp-action="Date" method="get">
+                <input name="date", type="date" placeholder="Дата">
+                <input type="submit" value="Шукати" class="btn btn-success" />
+            </form>
+        </div>
+        <div class="col col-lg-2 float-right">
+            @Html.ActionLink("Всі", "Index", "Trips", null)
+        </div>
+    </div>
+   
+    </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Дата
+            </th>
+            <th>
+                Маршрут
+            </th>
+            <th>
+                Автобус
+            </th>
+            <th>
+                Водій
+            </th>
+            <th>
+                Час відправлення
+            </th>
+            <th>
+                Пасажирів
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            foreach (var item in Model)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeportingDate)
+                </td>
+                <td>
+                    @Html.ActionLink(@routeRepresentation(item.Journey.Route.StartPoint, item.Journey.Route.EndPoint),
+         "Details", "Broutes", new { id = item.Journey.RouteId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Journey.Bus.BusModel, "Details", "Buses", new { id = item.Journey.BusId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Journey.Driver.DriverName, "Details", "Drivers", new { id = item.Journey.DriverId }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Journey.DeportingTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassangersCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeportingStat)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TripId">Редагувати</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TripId">Відмінити</a>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@model Trip
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Trip</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TripId" />
+
+            <input asp-for="PassangersCount" type="hidden" class="form-control" />
+
+            <div class="form-group">
+                <label class="control-label">Id Диспетчера</label>
+                <select asp-for="DispatcherId" class="form-control" asp-items="ViewBag.DispatcherId"></select>
+                <span asp-validation-for="DispatcherId" class="text-danger"></span>
+            </div>
+
+            <input asp-for="JourneyId" hidden class="form-control" ) value=@Model.JourneyId></input>
+
+            <div class="form-group">
+                <label asp-for="DeportingStat" class="control-label">Статус відправлення</label>
+                @Html.DropDownListFor(m => m.DeportingStat, new SelectList(Enum.GetValues(typeof(DeportingStatus))), new { @class = "form-control" })
+                <span asp-validation-for="DeportingStat" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="DeportingDate" class="form-control" value=@Model.DeportingDate></input>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
