@@ -55,20 +55,22 @@ namespace cource_work.Controllers
 
 
 
-        // GET: Tickets/getRoutePointsFromRoute
-        public JsonResult getRoutePointsFromRoute(int id) {
-            var routePoints = from trips in _context.Trip.Where(t => t.TripId == id).ToList()
-                              join j in _context.Journey.ToList() on trips.JourneyId equals j.JourneyId into table1
-                              from jt in table1.ToList()
-                              join r in _context.Broute.ToList() on jt.RouteId equals r.RouteId into table2
-                              from jtr in table2.ToList()
-                              join rp in _context.RoutePoint.ToList() on jtr.RouteId equals rp.RouteId
-                              select
-                              new {
-                                  rpId = rp.RpId,
-                                  cityName = rp.CityName
-                              };
-            return Json(routePoints);
+        // GET: Tickets/getRoutePointsFromTrip
+        public JsonResult getRoutePointsFromTrip(int id) {
+
+
+            var rp = _context.JourneyRoutePoint.Include(jrp => jrp.Journey)
+                .Include(jpr => jpr.Journey.Trip)
+                .Include(jpr => jpr.Rp)
+                .Where(jrp => jrp.Journey.Trip.FirstOrDefault(t => t.TripId == id).TripId == id).ToList()
+                .Select(r => new
+                {
+                    rpId = r.RpId,
+                    cityName = r.Rp.CityName + " " + r.ArrivalTime,
+                    ticketPrice = r.TicketPrice
+                });
+
+            return Json(rp.ToList());
         }
 
 
@@ -90,19 +92,11 @@ namespace cource_work.Controllers
 
 
 
-        //GET: Tickets/getSeatRange
+        //GET: Tickets/getSeatAndPrice
         public JsonResult getSeatRange(int tripId, int rpId) {
-            var trip = _context.Trip.Include(t => t.Journey)
-                .Include(t => t.Journey.Bus).FirstOrDefault(t => t.TripId == tripId);
-            var routePoint = _context.RoutePoint.FirstOrDefault(t => t.RpId == rpId);
-
-            if (trip.PassangersCount >= trip.Journey.Bus.SitingNumber) {
-                return null;
-            }
-            MinMaxSeatAndPrice minMax = new MinMaxSeatAndPrice { Min = (int)trip.PassangersCount + 1, 
-                Max = (int)trip.Journey.Bus.SitingNumber,
-                //Price = (double)routePoint.};
-            return Json(minMax);
+            int seat = (int)_context.Trip.First(t => t.TripId == tripId).PassangersCount + 1;
+            decimal price = (decimal)_context.JourneyRoutePoint.First(r => r.RpId == rpId).TicketPrice;
+            return Json(new {seat, price});
         }
 
 

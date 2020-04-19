@@ -13,14 +13,18 @@ namespace cource_work.Models
         private readonly RequestDelegate _next;
         private String _connection;
 
-        public WorkPreparatorMiddleware(RequestDelegate next, String connection) {
+        public WorkPreparatorMiddleware(RequestDelegate next, String connection)
+        {
             this._next = next;
             _connection = connection;
         }
 
-        public async Task InvokeAsync(HttpContext context) {
-            using (SqlConnection con = new SqlConnection(_connection)) {
-                using (SqlCommand command = new SqlCommand("createJourneysForToday", con)) {
+        public async Task InvokeAsync(HttpContext context)
+        {
+            using (SqlConnection con = new SqlConnection(_connection))
+            {
+                using (SqlCommand command = new SqlCommand("createJourneysForToday", con))
+                {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     con.Open();
                     command.ExecuteScalar();
@@ -28,5 +32,5 @@ namespace cource_work.Models
             }
             await _next.Invoke(context);
         }
-}
+    }
 }

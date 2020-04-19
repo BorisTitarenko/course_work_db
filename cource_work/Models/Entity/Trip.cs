@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace cource_work.Models.Entity
 {
@@ -16,8 +15,6 @@ namespace cource_work.Models.Entity
         public int? DispatcherId { get; set; }
         public int JourneyId { get; set; }
         public string DeportingStat { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? DeportingDate { get; set; }
 
         public virtual Dispatcher Dispatcher { get; set; }

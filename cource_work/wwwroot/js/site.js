@@ -3,7 +3,7 @@
 function updateRoutePoints() {
     $list = $("#rp_id");
     $.ajax({
-        url: "/Tickets/getRoutePointsFromRoute",
+        url: "/Tickets/getRoutePointsFromTrip",
         type: "GET",
         data: { id: $("#trip_id").val() },
         traditional: true,
@@ -46,17 +46,20 @@ function updateTrips() {
     })
 }
 
-function getSeatRange() {
-    $target = $("#seat");
+function getSeatAndPrice() {
+    $seat = $("#seat");
+    $price = $("#price");
     $.ajax({
         url: "/Tickets/getSeatRange",
         type: "GET",
-        data: { tripId: $("#trip_id").val() },
+        data: { tripId: $("#trip_id").val(), rpId: $("#rp_id").val()  },
         traditional: true,
         success: function (result) {
-            $target.empty();
-            $target.attr('min', result["min"]);
-            $target.attr('max', result["max"]);
+            $seat.empty();
+            $seat.attr('min', result["seat"]);
+            $seat.attr('max', result["seat"]);
+            $seat.val(result["seat"]);
+            $price.val(result["price"]);
         },
         error: function () {
             alert("Something went wrong call the police");

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace cource_work.Models.Entity
 {
-    public partial class TicketRoutePoint
+    public partial class RouteRoutePoint
     {
-        public int TrpId { get; set; }
-        public int? TicketId { get; set; }
+        public int RrpId { get; set; }
+        public int? RouteId { get; set; }
         public int? RpId { get; set; }
 
+        public virtual Broute Route { get; set; }
         public virtual RoutePoint Rp { get; set; }
-        public virtual Ticket Ticket { get; set; }
     }
 }

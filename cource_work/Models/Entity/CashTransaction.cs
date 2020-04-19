@@ -14,7 +14,6 @@ namespace cource_work.Models.Entity
         public TimeSpan PayTime { get; set; }
         public double TotalCash { get; set; }
         public bool? WithCart { get; set; }
-        public string Currency { get; set; }
         public int? DcaId { get; set; }
 
         public virtual DayCashAmount Dca { get; set; }

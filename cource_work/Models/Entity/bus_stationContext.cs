@@ -29,15 +29,16 @@ namespace cource_work.Models.Entity
         public virtual DbSet<Driver> Driver { get; set; }
         public virtual DbSet<Employer> Employer { get; set; }
         public virtual DbSet<Journey> Journey { get; set; }
+        public virtual DbSet<JourneyRoutePoint> JourneyRoutePoint { get; set; }
         public virtual DbSet<Mechanic> Mechanic { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
+        public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
         public virtual DbSet<StationPlatform> StationPlatform { get; set; }
         public virtual DbSet<StorageCenter> StorageCenter { get; set; }
         public virtual DbSet<StoreBaggage> StoreBaggage { get; set; }
         public virtual DbSet<StoreKeeper> StoreKeeper { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
-        public virtual DbSet<TicketRoutePoint> TicketRoutePoint { get; set; }
         public virtual DbSet<TransportationCosts> TransportationCosts { get; set; }
         public virtual DbSet<Trip> Trip { get; set; }
         public virtual DbSet<Vacation> Vacation { get; set; }
@@ -126,8 +127,6 @@ namespace cource_work.Models.Entity
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EndTime).HasColumnName("end_time");
-
                 entity.Property(e => e.RouteLength).HasColumnName("route_length");
 
                 entity.Property(e => e.StartPoint)
@@ -135,8 +134,6 @@ namespace cource_work.Models.Entity
                     .HasColumnName("start_point")
                     .HasMaxLength(30)
                     .IsUnicode(false);
-
-                entity.Property(e => e.StartTime).HasColumnName("start_time");
             });
 
             modelBuilder.Entity<Bus>(entity =>
@@ -228,12 +225,6 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.CtId).HasColumnName("ct_id");
 
-                entity.Property(e => e.Currency)
-                    .IsRequired()
-                    .HasColumnName("currency")
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.DcaId).HasColumnName("dca_id");
 
                 entity.Property(e => e.PayTime).HasColumnName("pay_time");
@@ -283,9 +274,9 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.CrId).HasColumnName("cr_id");
 
-                entity.Property(e => e.TotalDayAmount).HasColumnName("total_day_amount");
-
                 entity.Property(e => e.LastTransactionTime).HasColumnName("last_transaction_time");
+
+                entity.Property(e => e.TotalDayAmount).HasColumnName("total_day_amount");
 
                 entity.Property(e => e.WorkDate)
                     .HasColumnName("work_date")
@@ -427,11 +418,19 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.BusId).HasColumnName("bus_id");
 
+                entity.Property(e => e.CarrierCompanyCosts)
+                    .HasColumnName("carrier_company_costs")
+                    .HasColumnType("decimal(17, 2)");
+
                 entity.Property(e => e.DeportingTime).HasColumnName("deporting_time");
 
                 entity.Property(e => e.DriverId).HasColumnName("driver_id");
 
+                entity.Property(e => e.EndTime).HasColumnName("end_time");
+
                 entity.Property(e => e.RouteId).HasColumnName("route_id");
+
+                entity.Property(e => e.StartTime).HasColumnName("start_time");
 
                 entity.HasOne(d => d.Bus)
                     .WithMany(p => p.Journey)
@@ -447,6 +446,35 @@ namespace cource_work.Models.Entity
                     .WithMany(p => p.Journey)
                     .HasForeignKey(d => d.RouteId)
                     .HasConstraintName("FK__BusDriver__route__4316F928");
+            });
+
+            modelBuilder.Entity<JourneyRoutePoint>(entity =>
+            {
+                entity.HasKey(e => e.TrpId)
+                    .HasName("PK__JourneyR__51881C5ADB0471A4");
+
+                entity.Property(e => e.TrpId).HasColumnName("trp_id");
+
+                entity.Property(e => e.ArrivalTime).HasColumnName("arrival_time");
+
+                entity.Property(e => e.JourneyId).HasColumnName("journey_id");
+
+                entity.Property(e => e.RpId).HasColumnName("rp_id");
+
+                entity.Property(e => e.TicketPrice)
+                    .HasColumnName("ticket_price")
+                    .HasColumnType("decimal(6, 2)");
+
+                entity.HasOne(d => d.Journey)
+                    .WithMany(p => p.JourneyRoutePoint)
+                    .HasForeignKey(d => d.JourneyId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__JourneyRo__journ__0697FACD");
+
+                entity.HasOne(d => d.Rp)
+                    .WithMany(p => p.JourneyRoutePoint)
+                    .HasForeignKey(d => d.RpId)
+                    .HasConstraintName("FK__JourneyRo__rp_id__7849DB76");
             });
 
             modelBuilder.Entity<Mechanic>(entity =>
@@ -489,31 +517,39 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.RpId).HasColumnName("rp_id");
 
-                entity.Property(e => e.ArrivalTime).HasColumnName("arrival_time");
-
                 entity.Property(e => e.CityName)
                     .IsRequired()
                     .HasColumnName("city_name")
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RouteId).HasColumnName("route_id");
-
-                entity.Property(e => e.TicketPrice)
-                .IsRequired()
-                .HasColumnName("ticket_price");
-
                 entity.Property(e => e.StopName)
                     .IsRequired()
                     .HasColumnName("stop_name")
                     .HasMaxLength(30)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<RouteRoutePoint>(entity =>
+            {
+                entity.HasKey(e => e.RrpId)
+                    .HasName("PK__TicketRo__51881C5AF571C05A");
+
+                entity.Property(e => e.RrpId).HasColumnName("rrp_id");
+
+                entity.Property(e => e.RouteId).HasColumnName("route_id");
+
+                entity.Property(e => e.RpId).HasColumnName("rp_id");
 
                 entity.HasOne(d => d.Route)
-                    .WithMany(p => p.RoutePoint)
+                    .WithMany(p => p.RouteRoutePoint)
                     .HasForeignKey(d => d.RouteId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__RoutePoin__route__52593CB8");
+                    .HasConstraintName("FK__RouteRout__route__73852659");
+
+                entity.HasOne(d => d.Rp)
+                    .WithMany(p => p.RouteRoutePoint)
+                    .HasForeignKey(d => d.RpId)
+                    .HasConstraintName("FK__RouteRout__rp_id__74794A92");
             });
 
             modelBuilder.Entity<StationPlatform>(entity =>
@@ -624,6 +660,8 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.PassengerId).HasColumnName("passenger_id");
 
+                entity.Property(e => e.RpId).HasColumnName("rp_id");
+
                 entity.Property(e => e.Seat).HasColumnName("seat");
 
                 entity.Property(e => e.TripId).HasColumnName("trip_id");
@@ -639,34 +677,15 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.PassengerId)
                     .HasConstraintName("FK__Ticket__passenge__693CA210");
 
+                entity.HasOne(d => d.Rp)
+                    .WithMany(p => p.Ticket)
+                    .HasForeignKey(d => d.RpId)
+                    .HasConstraintName("FK__Ticket__rp_id__078C1F06");
+
                 entity.HasOne(d => d.Trip)
                     .WithMany(p => p.Ticket)
                     .HasForeignKey(d => d.TripId)
                     .HasConstraintName("FK__Ticket__trip_id__607251E5");
-            });
-
-            modelBuilder.Entity<TicketRoutePoint>(entity =>
-            {
-                entity.HasKey(e => e.TrpId)
-                    .HasName("PK__TicketRo__51881C5AF571C05A");
-
-                entity.Property(e => e.TrpId).HasColumnName("trp_id");
-
-                entity.Property(e => e.RpId).HasColumnName("rp_id");
-
-                entity.Property(e => e.TicketId).HasColumnName("ticket_id");
-
-                entity.HasOne(d => d.Rp)
-                    .WithMany(p => p.TicketRoutePoint)
-                    .HasForeignKey(d => d.RpId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__TicketRou__rp_id__6442E2C9");
-
-                entity.HasOne(d => d.Ticket)
-                    .WithMany(p => p.TicketRoutePoint)
-                    .HasForeignKey(d => d.TicketId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__TicketRou__ticke__634EBE90");
             });
 
             modelBuilder.Entity<TransportationCosts>(entity =>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace cource_work.Models.Entity
 {
