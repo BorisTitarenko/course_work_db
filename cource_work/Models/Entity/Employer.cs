@@ -7,10 +7,7 @@ namespace cource_work.Models.Entity
     {
         public Employer()
         {
-            Accountant = new HashSet<Accountant>();
-            Cashier = new HashSet<Cashier>();
-            Dispatcher = new HashSet<Dispatcher>();
-            Mechanic = new HashSet<Mechanic>();
+           
             Vacation = new HashSet<Vacation>();
         }
 
@@ -24,10 +21,7 @@ namespace cource_work.Models.Entity
         public string EmployerPhone { get; set; }
 
         public virtual Accounting Accounting { get; set; }
-        public virtual ICollection<Accountant> Accountant { get; set; }
-        public virtual ICollection<Cashier> Cashier { get; set; }
-        public virtual ICollection<Dispatcher> Dispatcher { get; set; }
-        public virtual ICollection<Mechanic> Mechanic { get; set; }
+       
         public virtual ICollection<Vacation> Vacation { get; set; }
     }
 }

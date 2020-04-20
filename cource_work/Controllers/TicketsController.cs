@@ -133,7 +133,6 @@ namespace cource_work.Controllers
                 Ticket ticket = new Ticket
                 {
                     PassengerId = trptvm.PassengerId,
-                    Nds = (trptvm.TicketPrice / 100) * ndsPersents,
                     Seat = trptvm.Seat,
                     CtId = _context.CashTransaction.ToList().Last().CtId,
                     TripId = trptvm.TripId,

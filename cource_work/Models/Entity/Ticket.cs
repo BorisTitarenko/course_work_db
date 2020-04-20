@@ -7,7 +7,6 @@ namespace cource_work.Models.Entity
     public partial class Ticket
     {
         public int TicketId { get; set; }
-        public Decimal Nds { get; set; }
         public int Seat { get; set; }
         public int PassengerId { get; set; }
         public int CtId { get; set; }

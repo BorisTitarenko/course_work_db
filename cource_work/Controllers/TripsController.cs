@@ -21,7 +21,7 @@ namespace cource_work.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Trip.Include(t => t.Dispatcher)
+            var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Driver)
@@ -33,7 +33,7 @@ namespace cource_work.Controllers
         // GET: Trips/Search
         public async Task<IActionResult> Search(string ss = "PLANNED")
         {
-            var bus_stationContext = _context.Trip.Include(t => t.Dispatcher)
+            var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Driver)
@@ -50,7 +50,7 @@ namespace cource_work.Controllers
 
         public async Task<IActionResult> Date(DateTime date)
         {
-            var bus_stationContext = _context.Trip.Include(t => t.Dispatcher)
+            var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Driver)
@@ -72,7 +72,6 @@ namespace cource_work.Controllers
             {
                 return NotFound();
             }
-           ViewData["DispatcherId"] = new SelectList(_context.Dispatcher, "DispatcherId", "DispatcherId", trip.DispatcherId);
             return View(trip);
         }
 
@@ -97,7 +96,6 @@ namespace cource_work.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DispatcherId"] = new SelectList(_context.Dispatcher, "DispatcherId", "DispatcherId", trip.DispatcherId);
             return View(trip);
         }
 
@@ -110,7 +108,6 @@ namespace cource_work.Controllers
             }
 
             var trip = await _context.Trip
-                .Include(t => t.Dispatcher)
                 .Include(t => t.Journey)
                 .FirstOrDefaultAsync(m => m.TripId == id);
             if (trip == null)

@@ -7,7 +7,7 @@ namespace cource_work.Models.Entity
     {
         public CashRegister()
         {
-            Cashier = new HashSet<Cashier>();
+            
             DayCashAmount = new HashSet<DayCashAmount>();
         }
 
@@ -18,7 +18,6 @@ namespace cource_work.Models.Entity
         public string ComputerOs { get; set; }
         public double? ComputerPrice { get; set; }
 
-        public virtual ICollection<Cashier> Cashier { get; set; }
         public virtual ICollection<DayCashAmount> DayCashAmount { get; set; }
     }
 }

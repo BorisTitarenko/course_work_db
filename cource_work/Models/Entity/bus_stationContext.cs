@@ -15,21 +15,17 @@ namespace cource_work.Models.Entity
         {
         }
 
-        public virtual DbSet<Accountant> Accountant { get; set; }
         public virtual DbSet<Accounting> Accounting { get; set; }
         public virtual DbSet<Broute> Broute { get; set; }
         public virtual DbSet<Bus> Bus { get; set; }
         public virtual DbSet<CarrierCompany> CarrierCompany { get; set; }
         public virtual DbSet<CashRegister> CashRegister { get; set; }
         public virtual DbSet<CashTransaction> CashTransaction { get; set; }
-        public virtual DbSet<Cashier> Cashier { get; set; }
         public virtual DbSet<DayCashAmount> DayCashAmount { get; set; }
-        public virtual DbSet<Dispatcher> Dispatcher { get; set; }
         public virtual DbSet<Driver> Driver { get; set; }
         public virtual DbSet<Employer> Employer { get; set; }
         public virtual DbSet<Journey> Journey { get; set; }
         public virtual DbSet<JourneyRoutePoint> JourneyRoutePoint { get; set; }
-        public virtual DbSet<Mechanic> Mechanic { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
         public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
@@ -50,17 +46,7 @@ namespace cource_work.Models.Entity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Accountant>(entity =>
-            {
-                entity.Property(e => e.AccountantId).HasColumnName("accountant_id");
-
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
-
-                entity.HasOne(d => d.Employer)
-                    .WithMany(p => p.Accountant)
-                    .HasForeignKey(d => d.EmployerId)
-                    .HasConstraintName("FK__Accountan__emplo__4BAC3F29");
-            });
+           
 
             modelBuilder.Entity<Accounting>(entity =>
             {
@@ -217,29 +203,7 @@ namespace cource_work.Models.Entity
                     .HasConstraintName("FK__CashTrans__dca_i__66603565");
             });
 
-            modelBuilder.Entity<Cashier>(entity =>
-            {
-                entity.Property(e => e.CashierId).HasColumnName("cashier_id");
-
-                entity.Property(e => e.CrId).HasColumnName("cr_id");
-
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
-
-                entity.Property(e => e.Religion)
-                    .HasColumnName("religion")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Cr)
-                    .WithMany(p => p.Cashier)
-                    .HasForeignKey(d => d.CrId)
-                    .HasConstraintName("FK__Cashier__cr_id__5FB337D6");
-
-                entity.HasOne(d => d.Employer)
-                    .WithMany(p => p.Cashier)
-                    .HasForeignKey(d => d.EmployerId)
-                    .HasConstraintName("FK__Cashier__employe__5EBF139D");
-            });
+           
 
             modelBuilder.Entity<DayCashAmount>(entity =>
             {
@@ -272,18 +236,7 @@ namespace cource_work.Models.Entity
                     .HasConstraintName("FK__DayCashAm__cr_id__6383C8BA");
             });
 
-            modelBuilder.Entity<Dispatcher>(entity =>
-            {
-                entity.Property(e => e.DispatcherId).HasColumnName("dispatcher_id");
-
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
-
-                entity.HasOne(d => d.Employer)
-                    .WithMany(p => p.Dispatcher)
-                    .HasForeignKey(d => d.EmployerId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__Dispatche__emplo__7C4F7684");
-            });
+          
 
             modelBuilder.Entity<Driver>(entity =>
             {
@@ -443,6 +396,10 @@ namespace cource_work.Models.Entity
                     .HasColumnName("ticket_price")
                     .HasColumnType("decimal(6, 2)");
 
+                entity.Property(e => e.PDV)
+                   .HasColumnName("pdv")
+                   .HasColumnType("decimal(6, 2)");
+
                 entity.HasOne(d => d.Journey)
                     .WithMany(p => p.JourneyRoutePoint)
                     .HasForeignKey(d => d.JourneyId)
@@ -455,23 +412,7 @@ namespace cource_work.Models.Entity
                     .HasConstraintName("FK__JourneyRo__rp_id__7849DB76");
             });
 
-            modelBuilder.Entity<Mechanic>(entity =>
-            {
-                entity.Property(e => e.MechanicId).HasColumnName("mechanic_id");
-
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
-
-                entity.Property(e => e.Qualification)
-                    .IsRequired()
-                    .HasColumnName("qualification")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Employer)
-                    .WithMany(p => p.Mechanic)
-                    .HasForeignKey(d => d.EmployerId)
-                    .HasConstraintName("FK__Mechanic__employ__797309D9");
-            });
+          
 
             modelBuilder.Entity<Passenger>(entity =>
             {
@@ -552,7 +493,6 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.CtId).HasColumnName("ct_id");
 
-                entity.Property(e => e.Nds).HasColumnName("nds");
 
                 entity.Property(e => e.PassengerId).HasColumnName("passenger_id");
 
@@ -636,12 +576,7 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.PassangersCount).HasColumnName("passangers_count");
 
-                entity.HasOne(d => d.Dispatcher)
-                    .WithMany(p => p.Trip)
-                    .HasForeignKey(d => d.DispatcherId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__Journey__dispatc__00200768");
-
+             
                 entity.HasOne(d => d.Journey)
                     .WithMany(p => p.Trip)
                     .HasForeignKey(d => d.JourneyId)

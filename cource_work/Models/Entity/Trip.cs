@@ -17,7 +17,6 @@ namespace cource_work.Models.Entity
         public string DeportingStat { get; set; }
         public DateTime? DeportingDate { get; set; }
 
-        public virtual Dispatcher Dispatcher { get; set; }
         public virtual Journey Journey { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }

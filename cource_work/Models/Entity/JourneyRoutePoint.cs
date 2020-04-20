@@ -8,7 +8,9 @@ namespace cource_work.Models.Entity
         public int TrpId { get; set; }
         public int JourneyId { get; set; }
         public int RpId { get; set; }
-        public decimal? TicketPrice { get; set; }
+        public decimal TicketPrice { get; set; }
+        public decimal PDV { get; set; }
+
         public TimeSpan? ArrivalTime { get; set; }
 
         public virtual Journey Journey { get; set; }
