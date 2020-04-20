@@ -46,9 +46,13 @@
                 @Html.DisplayFor(modelItem => item.Trip.DeportingStat)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
+               
+                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a>
+                @using (Html.BeginForm("Delete", "Tickets", FormMethod.Post))
+                { 
+                    <input hidden name="id", value=@item.TicketId>
+                    <input type="submit" value="Видалити"/>
+                }
             </td>
         </tr>
 }

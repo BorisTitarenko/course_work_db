@@ -171,9 +171,7 @@ E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Trips\Edit.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Trips\Index.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Create.cshtml.g.cs
-E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Delete.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Details.cshtml.g.cs
-E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Edit.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Index.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\AjaxControlToolkit.dll
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\cource_work.csproj.CoreCompileInputs.cache
