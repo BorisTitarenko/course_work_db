@@ -160,7 +160,15 @@ namespace cource_work.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var ticket = await _context.Ticket.FindAsync(id);
+            var transaction = await _context.CashTransaction.FindAsync(ticket.CtId);
+            var dca = await _context.DayCashAmount.FindAsync(transaction.DcaId);
+            if (transaction.PayTime < dca.LastTransactionTime)
+            {
+                dca.TotalDayAmount -= transaction.TotalCash;
+                _context.Update(dca);
+            }
             _context.Ticket.Remove(ticket);
+            _context.CashTransaction.Remove(transaction);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
