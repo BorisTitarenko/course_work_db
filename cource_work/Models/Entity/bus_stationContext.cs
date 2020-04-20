@@ -23,10 +23,12 @@ namespace cource_work.Models.Entity
         public virtual DbSet<CashTransaction> CashTransaction { get; set; }
         public virtual DbSet<DayCashAmount> DayCashAmount { get; set; }
         public virtual DbSet<Driver> Driver { get; set; }
-        public virtual DbSet<Employee> Employer { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Euser> Euser { get; set; }
         public virtual DbSet<Journey> Journey { get; set; }
         public virtual DbSet<JourneyRoutePoint> JourneyRoutePoint { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
         public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
         public virtual DbSet<StationPlatform> StationPlatform { get; set; }
@@ -46,8 +48,6 @@ namespace cource_work.Models.Entity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
-
             modelBuilder.Entity<Accounting>(entity =>
             {
                 entity.HasKey(e => e.AccId)
@@ -193,7 +193,9 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.PayTime).HasColumnName("pay_time");
 
-                entity.Property(e => e.TotalCash).HasColumnName("total_cash");
+                entity.Property(e => e.TotalCash)
+                    .HasColumnName("total_cash")
+                    .HasColumnType("decimal(14, 2)");
 
                 entity.Property(e => e.WithCart).HasColumnName("with_cart");
 
@@ -202,8 +204,6 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.DcaId)
                     .HasConstraintName("FK__CashTrans__dca_i__66603565");
             });
-
-           
 
             modelBuilder.Entity<DayCashAmount>(entity =>
             {
@@ -218,7 +218,9 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.LastTransactionTime).HasColumnName("last_transaction_time");
 
-                entity.Property(e => e.TotalDayAmount).HasColumnName("total_day_amount");
+                entity.Property(e => e.TotalDayAmount)
+                    .HasColumnName("total_day_amount")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.WorkDate)
                     .HasColumnName("work_date")
@@ -235,8 +237,6 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.CrId)
                     .HasConstraintName("FK__DayCashAm__cr_id__6383C8BA");
             });
-
-          
 
             modelBuilder.Entity<Driver>(entity =>
             {
@@ -324,29 +324,14 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.EmployeeSalary).HasColumnName("employee_salary");
 
-                entity.Property(e => e.EmployeeShift)
-                    .HasColumnName("employer_shift")
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.EmployeeWorkBook)
                     .HasColumnName("employee_work_book")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
-                    .HasColumnName("password")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EmployeeLogin)
-                    .HasColumnName("employee_login")
-                    .HasMaxLength(20)
+                entity.Property(e => e.EmployerShift)
+                    .HasColumnName("employer_shift")
+                    .HasMaxLength(5)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Accounting)
@@ -354,6 +339,40 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.AccountingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Employer__accoun__47DBAE45");
+            });
+
+            modelBuilder.Entity<Euser>(entity =>
+            {
+                entity.ToTable("EUser");
+
+                entity.Property(e => e.EuserId).HasColumnName("euser_id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+
+                entity.Property(e => e.EuserLogin)
+                    .IsRequired()
+                    .HasColumnName("euser_login")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EuserPassword)
+                    .IsRequired()
+                    .HasColumnName("euser_password")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Euser)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .HasConstraintName("FK__EUser__employee___2EA5EC27");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Euser)
+                    .HasForeignKey(d => d.RoleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__EUser__role_id__2F9A1060");
             });
 
             modelBuilder.Entity<Journey>(entity =>
@@ -405,15 +424,15 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.JourneyId).HasColumnName("journey_id");
 
+                entity.Property(e => e.Pdv)
+                    .HasColumnName("pdv")
+                    .HasColumnType("decimal(6, 2)");
+
                 entity.Property(e => e.RpId).HasColumnName("rp_id");
 
                 entity.Property(e => e.TicketPrice)
                     .HasColumnName("ticket_price")
                     .HasColumnType("decimal(6, 2)");
-
-                entity.Property(e => e.PDV)
-                   .HasColumnName("pdv")
-                   .HasColumnType("decimal(6, 2)");
 
                 entity.HasOne(d => d.Journey)
                     .WithMany(p => p.JourneyRoutePoint)
@@ -426,8 +445,6 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.RpId)
                     .HasConstraintName("FK__JourneyRo__rp_id__7849DB76");
             });
-
-          
 
             modelBuilder.Entity<Passenger>(entity =>
             {
@@ -442,6 +459,17 @@ namespace cource_work.Models.Entity
                     .IsUnicode(false);
 
                 entity.Property(e => e.Preferential).HasColumnName("preferential");
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
+
+                entity.Property(e => e.RoleName)
+                    .IsRequired()
+                    .HasColumnName("role_name")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<RoutePoint>(entity =>
@@ -501,13 +529,11 @@ namespace cource_work.Models.Entity
                     .IsUnicode(false);
             });
 
-            
             modelBuilder.Entity<Ticket>(entity =>
             {
                 entity.Property(e => e.TicketId).HasColumnName("ticket_id");
 
                 entity.Property(e => e.CtId).HasColumnName("ct_id");
-
 
                 entity.Property(e => e.PassengerId).HasColumnName("passenger_id");
 
@@ -531,11 +557,13 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Rp)
                     .WithMany(p => p.Ticket)
                     .HasForeignKey(d => d.RpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Ticket__rp_id__078C1F06");
 
                 entity.HasOne(d => d.Trip)
                     .WithMany(p => p.Ticket)
                     .HasForeignKey(d => d.TripId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Ticket__trip_id__607251E5");
             });
 
@@ -585,13 +613,10 @@ namespace cource_work.Models.Entity
                     .IsUnicode(false)
                     .HasDefaultValueSql("('PLANNED')");
 
-                entity.Property(e => e.DispatcherId).HasColumnName("dispatcher_id");
-
                 entity.Property(e => e.JourneyId).HasColumnName("journey_id");
 
                 entity.Property(e => e.PassangersCount).HasColumnName("passangers_count");
 
-             
                 entity.HasOne(d => d.Journey)
                     .WithMany(p => p.Trip)
                     .HasForeignKey(d => d.JourneyId)
@@ -616,7 +641,7 @@ namespace cource_work.Models.Entity
                     .HasColumnName("return_date")
                     .HasColumnType("date");
 
-                entity.HasOne(d => d.Employee)
+                entity.HasOne(d => d.Employer)
                     .WithMany(p => p.Vacation)
                     .HasForeignKey(d => d.EmployerId)
                     .OnDelete(DeleteBehavior.Cascade)

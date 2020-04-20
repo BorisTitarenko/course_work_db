@@ -11,11 +11,11 @@ namespace cource_work.Models.Entity
         }
 
         public int DcaId { get; set; }
-        public Decimal TotalDayAmount { get; set; }
+        public decimal TotalDayAmount { get; set; }
         public DateTime WorkDate { get; set; }
         public int AccId { get; set; }
         public int CrId { get; set; }
-        public TimeSpan LastTransactionTime { get; set; }
+        public TimeSpan? LastTransactionTime { get; set; }
 
         public virtual Accounting Acc { get; set; }
         public virtual CashRegister Cr { get; set; }

@@ -12,7 +12,6 @@ namespace cource_work.Models.Entity
 
         public int TripId { get; set; }
         public int? PassangersCount { get; set; }
-        public int? DispatcherId { get; set; }
         public int JourneyId { get; set; }
         public string DeportingStat { get; set; }
         public DateTime? DeportingDate { get; set; }

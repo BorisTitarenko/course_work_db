@@ -12,9 +12,9 @@ namespace cource_work.Models.Entity
 
         public int CtId { get; set; }
         public TimeSpan PayTime { get; set; }
-        public Decimal TotalCash { get; set; }
         public bool? WithCart { get; set; }
-        public int DcaId { get; set; }
+        public int? DcaId { get; set; }
+        public decimal TotalCash { get; set; }
 
         public virtual DayCashAmount Dca { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }

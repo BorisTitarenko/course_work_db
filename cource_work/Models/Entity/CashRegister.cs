@@ -7,7 +7,6 @@ namespace cource_work.Models.Entity
     {
         public CashRegister()
         {
-            
             DayCashAmount = new HashSet<DayCashAmount>();
         }
 

@@ -7,7 +7,7 @@ namespace cource_work.Models.Entity
     {
         public Employee()
         {
-           
+            Euser = new HashSet<Euser>();
             Vacation = new HashSet<Vacation>();
         }
 
@@ -16,15 +16,12 @@ namespace cource_work.Models.Entity
         public string EmployeeName { get; set; }
         public string EmployeePassport { get; set; }
         public string EmployeeWorkBook { get; set; }
-        public string EmployeeShift { get; set; }
+        public string EmployerShift { get; set; }
         public double EmployeeSalary { get; set; }
         public string EmployeePhone { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string EmployeeLogin { get; set; }
 
         public virtual Accounting Accounting { get; set; }
-       
+        public virtual ICollection<Euser> Euser { get; set; }
         public virtual ICollection<Vacation> Vacation { get; set; }
     }
 }

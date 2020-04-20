@@ -11,6 +11,6 @@ namespace cource_work.Models.Entity
         public decimal? PayLeave { get; set; }
         public int? EmployerId { get; set; }
 
-        public virtual Employee Employee { get; set; }
+        public virtual Employee Employer { get; set; }
     }
 }
