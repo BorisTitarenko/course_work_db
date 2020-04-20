@@ -23,7 +23,7 @@ namespace cource_work.Models.Entity
         public virtual DbSet<CashTransaction> CashTransaction { get; set; }
         public virtual DbSet<DayCashAmount> DayCashAmount { get; set; }
         public virtual DbSet<Driver> Driver { get; set; }
-        public virtual DbSet<Employer> Employer { get; set; }
+        public virtual DbSet<Employee> Employer { get; set; }
         public virtual DbSet<Journey> Journey { get; set; }
         public virtual DbSet<JourneyRoutePoint> JourneyRoutePoint { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
@@ -299,43 +299,58 @@ namespace cource_work.Models.Entity
                     .HasConstraintName("FK__Driver__cc_id__3C69FB99");
             });
 
-            modelBuilder.Entity<Employer>(entity =>
+            modelBuilder.Entity<Employee>(entity =>
             {
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
 
                 entity.Property(e => e.AccountingId).HasColumnName("accounting_id");
 
-                entity.Property(e => e.EmployerName)
+                entity.Property(e => e.EmployeeName)
                     .IsRequired()
-                    .HasColumnName("employer_name")
+                    .HasColumnName("employee_name")
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployerPassport)
-                    .HasColumnName("employer_passport")
+                entity.Property(e => e.EmployeePassport)
+                    .HasColumnName("employee_passport")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployerPhone)
+                entity.Property(e => e.EmployeePhone)
                     .IsRequired()
-                    .HasColumnName("employer_phone")
+                    .HasColumnName("employee_phone")
                     .HasMaxLength(13)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployerSalary).HasColumnName("employer_salary");
+                entity.Property(e => e.EmployeeSalary).HasColumnName("employee_salary");
 
-                entity.Property(e => e.EmployerShift)
+                entity.Property(e => e.EmployeeShift)
                     .HasColumnName("employer_shift")
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployerWorkBook)
-                    .HasColumnName("employer_work_book")
+                entity.Property(e => e.EmployeeWorkBook)
+                    .HasColumnName("employee_work_book")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasColumnName("password")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmployeeLogin)
+                    .HasColumnName("employee_login")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Accounting)
-                    .WithMany(p => p.Employer)
+                    .WithMany(p => p.Employee)
                     .HasForeignKey(d => d.AccountingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Employer__accoun__47DBAE45");
@@ -601,7 +616,7 @@ namespace cource_work.Models.Entity
                     .HasColumnName("return_date")
                     .HasColumnType("date");
 
-                entity.HasOne(d => d.Employer)
+                entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Vacation)
                     .HasForeignKey(d => d.EmployerId)
                     .OnDelete(DeleteBehavior.Cascade)

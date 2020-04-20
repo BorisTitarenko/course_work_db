@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using cource_work.Models;
 using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
 using cource_work.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace cource_work
 {
@@ -29,6 +30,11 @@ namespace cource_work
         {
             string connection = Configuration.GetConnectionString("connectingString");
             services.AddDbContext<bus_stationContext>(options => options.UseSqlServer(connection));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options => 
+                {
+                   options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+               });
             services.AddControllersWithViews();
         }
 

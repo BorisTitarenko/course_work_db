@@ -3,22 +3,25 @@ using System.Collections.Generic;
 
 namespace cource_work.Models.Entity
 {
-    public partial class Employer
+    public partial class Employee
     {
-        public Employer()
+        public Employee()
         {
            
             Vacation = new HashSet<Vacation>();
         }
 
-        public int EmployerId { get; set; }
+        public int EmployeeId { get; set; }
         public int AccountingId { get; set; }
-        public string EmployerName { get; set; }
-        public string EmployerPassport { get; set; }
-        public string EmployerWorkBook { get; set; }
-        public string EmployerShift { get; set; }
-        public double EmployerSalary { get; set; }
-        public string EmployerPhone { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeePassport { get; set; }
+        public string EmployeeWorkBook { get; set; }
+        public string EmployeeShift { get; set; }
+        public double EmployeeSalary { get; set; }
+        public string EmployeePhone { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string EmployeeLogin { get; set; }
 
         public virtual Accounting Accounting { get; set; }
        
