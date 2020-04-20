@@ -11,7 +11,6 @@ namespace cource_work.Models.Entity
             Cashier = new HashSet<Cashier>();
             Dispatcher = new HashSet<Dispatcher>();
             Mechanic = new HashSet<Mechanic>();
-            StoreKeeper = new HashSet<StoreKeeper>();
             Vacation = new HashSet<Vacation>();
         }
 
@@ -29,7 +28,6 @@ namespace cource_work.Models.Entity
         public virtual ICollection<Cashier> Cashier { get; set; }
         public virtual ICollection<Dispatcher> Dispatcher { get; set; }
         public virtual ICollection<Mechanic> Mechanic { get; set; }
-        public virtual ICollection<StoreKeeper> StoreKeeper { get; set; }
         public virtual ICollection<Vacation> Vacation { get; set; }
     }
 }

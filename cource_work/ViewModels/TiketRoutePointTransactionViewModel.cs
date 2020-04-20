@@ -15,7 +15,7 @@ namespace cource_work.ViewModels
         }
         public int RPId { get; set; }
         public int TripId { get; set; }
-        public double NDS { get; set; }
+        public Decimal NDS { get; set; }
         public TimeSpan PaimentTime { get; set; }
         public DateTime DepartureDate { get; set; }
         public int DayCashAmountId { get; set; }

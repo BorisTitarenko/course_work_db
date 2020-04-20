@@ -7,7 +7,6 @@ namespace cource_work.Models.Entity
     {
         public Passenger()
         {
-            Baggage = new HashSet<Baggage>();
             Ticket = new HashSet<Ticket>();
         }
 
@@ -16,7 +15,6 @@ namespace cource_work.Models.Entity
         public int PassengerAge { get; set; }
         public bool? Preferential { get; set; }
 
-        public virtual ICollection<Baggage> Baggage { get; set; }
         public virtual ICollection<Ticket> Ticket { get; set; }
     }
 }

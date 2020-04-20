@@ -9,7 +9,6 @@ namespace cource_work.Models.Entity
         {
             DayCashAmount = new HashSet<DayCashAmount>();
             Employer = new HashSet<Employer>();
-            StorageCenter = new HashSet<StorageCenter>();
             TransportationCosts = new HashSet<TransportationCosts>();
         }
 
@@ -25,7 +24,6 @@ namespace cource_work.Models.Entity
 
         public virtual ICollection<DayCashAmount> DayCashAmount { get; set; }
         public virtual ICollection<Employer> Employer { get; set; }
-        public virtual ICollection<StorageCenter> StorageCenter { get; set; }
         public virtual ICollection<TransportationCosts> TransportationCosts { get; set; }
     }
 }
