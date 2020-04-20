@@ -19,6 +19,7 @@ namespace cource_work.Controllers
     public class TicketsController : Controller
     {
         private readonly bus_stationContext _context;
+        private int ndsPersents = 20;
 
         public TicketsController(bus_stationContext context)
         {
@@ -107,7 +108,7 @@ namespace cource_work.Controllers
         {
             var trips = _context.Trip.ToList(); 
             var passDic = _context.Passenger.ToDictionary(p => p.PassengerId, p => p.PassengerName);
-            ViewData["PassengerId"] = new SelectList(passDic, "PassengerId", "PassengerName");
+            ViewData["PassengerId"] = new SelectList(_context.Passenger, "PassengerId", "PassengerName");
             return View();
         }
 
@@ -119,15 +120,35 @@ namespace cource_work.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TicketRoutePointTransactionViewModel trptvm)
         {
-            /*if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid){
+                CashTransaction cashTransaction = new CashTransaction {
+                    PayTime = trptvm.PaimentTime,
+                    TotalCash = trptvm.TicketPrice,
+                    DcaId = _context.DayCashAmount.FirstOrDefault(dca => dca.WorkDate == DateTime.Now.Date).DcaId,
+
+                };
+                _context.Add(cashTransaction);
+                await _context.SaveChangesAsync();
+
+                Ticket ticket = new Ticket
+                {
+                    PassengerId = trptvm.PassengerId,
+                    Nds = (trptvm.TicketPrice / 100) * ndsPersents,
+                    Seat = trptvm.Seat,
+                    CtId = _context.CashTransaction.ToList().Last().CtId,
+                    TripId = trptvm.TripId,
+                    RpId = trptvm.RPId
+                };
                 _context.Add(ticket);
+
+                Trip trip = _context.Trip.FirstOrDefault(t => t.TripId == trptvm.TripId);
+                trip.PassangersCount += 1;
+                _context.Update(trip);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["CtId"] = new SelectList(_context.CashTransaction, "CtId", "Currency", ticket.CtId);
-            ViewData["PassengerId"] = new SelectList(_context.Passenger, "PassengerId", "PassengerName", ticket.PassengerId);
-            ViewData["TripId"] = new SelectList(_context.Trip, "TripId", "DeportingStat", ticket.TripId);*/
+            ViewData["PassengerId"] = new SelectList(_context.Passenger, "PassengerId", "PassengerName", trptvm.PassengerId);
             return View();
         }
 

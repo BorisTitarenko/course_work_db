@@ -17,7 +17,6 @@ namespace cource_work.Models.Entity
 
         public virtual DbSet<Accountant> Accountant { get; set; }
         public virtual DbSet<Accounting> Accounting { get; set; }
-        public virtual DbSet<Baggage> Baggage { get; set; }
         public virtual DbSet<Broute> Broute { get; set; }
         public virtual DbSet<Bus> Bus { get; set; }
         public virtual DbSet<CarrierCompany> CarrierCompany { get; set; }
@@ -35,9 +34,6 @@ namespace cource_work.Models.Entity
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
         public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
         public virtual DbSet<StationPlatform> StationPlatform { get; set; }
-        public virtual DbSet<StorageCenter> StorageCenter { get; set; }
-        public virtual DbSet<StoreBaggage> StoreBaggage { get; set; }
-        public virtual DbSet<StoreKeeper> StoreKeeper { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TransportationCosts> TransportationCosts { get; set; }
         public virtual DbSet<Trip> Trip { get; set; }
@@ -92,24 +88,6 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.TicketAmount).HasColumnName("ticket_amount");
 
                 entity.Property(e => e.TransportationAmount).HasColumnName("transportation_amount");
-            });
-
-            modelBuilder.Entity<Baggage>(entity =>
-            {
-                entity.Property(e => e.BaggageId).HasColumnName("baggage_id");
-
-                entity.Property(e => e.BVolume).HasColumnName("b_volume");
-
-                entity.Property(e => e.BWeight).HasColumnName("b_weight");
-
-                entity.Property(e => e.NeedCare).HasColumnName("need_care");
-
-                entity.Property(e => e.PassengerId).HasColumnName("passenger_id");
-
-                entity.HasOne(d => d.Passenger)
-                    .WithMany(p => p.Baggage)
-                    .HasForeignKey(d => d.PassengerId)
-                    .HasConstraintName("FK__Baggage__passeng__59FA5E80");
             });
 
             modelBuilder.Entity<Broute>(entity =>
@@ -504,7 +482,7 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.PassengerName)
                     .IsRequired()
                     .HasColumnName("passenger_name")
-                    .HasMaxLength(4)
+                    .HasMaxLength(40)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Preferential).HasColumnName("preferential");
@@ -567,89 +545,7 @@ namespace cource_work.Models.Entity
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<StorageCenter>(entity =>
-            {
-                entity.HasKey(e => e.SCenterId)
-                    .HasName("PK__StorageC__8E1A74A270E9D582");
-
-                entity.Property(e => e.SCenterId).HasColumnName("s_center_id");
-
-                entity.Property(e => e.AccountingId).HasColumnName("accounting_id");
-
-                entity.Property(e => e.EndPeriod)
-                    .HasColumnName("end_period")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.PlaceNumber).HasColumnName("place_number");
-
-                entity.Property(e => e.StartPerion)
-                    .HasColumnName("start_perion")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.TotalAmount).HasColumnName("total_amount");
-
-                entity.HasOne(d => d.Accounting)
-                    .WithMany(p => p.StorageCenter)
-                    .HasForeignKey(d => d.AccountingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StorageCe__accou__6EF57B66");
-            });
-
-            modelBuilder.Entity<StoreBaggage>(entity =>
-            {
-                entity.HasKey(e => e.SbId)
-                    .HasName("PK__StoreBag__EABDD60E650B31CE");
-
-                entity.Property(e => e.SbId).HasColumnName("sb_id");
-
-                entity.Property(e => e.BaggageId).HasColumnName("baggage_id");
-
-                entity.Property(e => e.SCenterId).HasColumnName("s_center_id");
-
-                entity.Property(e => e.SbHours).HasColumnName("sb_hours");
-
-                entity.Property(e => e.SbNumber).HasColumnName("sb_number");
-
-                entity.Property(e => e.SbVolume).HasColumnName("sb_volume");
-
-                entity.Property(e => e.SbWeight).HasColumnName("sb_weight");
-
-                entity.Property(e => e.TotalAmount).HasColumnName("total_amount");
-
-                entity.HasOne(d => d.Baggage)
-                    .WithMany(p => p.StoreBaggage)
-                    .HasForeignKey(d => d.BaggageId)
-                    .HasConstraintName("FK__StoreBagg__bagga__76969D2E");
-
-                entity.HasOne(d => d.SCenter)
-                    .WithMany(p => p.StoreBaggage)
-                    .HasForeignKey(d => d.SCenterId)
-                    .HasConstraintName("FK__StoreBagg__s_cen__75A278F5");
-            });
-
-            modelBuilder.Entity<StoreKeeper>(entity =>
-            {
-                entity.HasKey(e => e.SKeeperId)
-                    .HasName("PK__StoreKee__3645B5F452DA66CF");
-
-                entity.Property(e => e.SKeeperId).HasColumnName("s_keeper_id");
-
-                entity.Property(e => e.EmployerId).HasColumnName("employer_id");
-
-                entity.Property(e => e.SCenterId).HasColumnName("s_center_id");
-
-                entity.HasOne(d => d.Employer)
-                    .WithMany(p => p.StoreKeeper)
-                    .HasForeignKey(d => d.EmployerId)
-                    .HasConstraintName("FK__StoreKeep__emplo__71D1E811");
-
-                entity.HasOne(d => d.SCenter)
-                    .WithMany(p => p.StoreKeeper)
-                    .HasForeignKey(d => d.SCenterId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__StoreKeep__s_cen__72C60C4A");
-            });
-
+            
             modelBuilder.Entity<Ticket>(entity =>
             {
                 entity.Property(e => e.TicketId).HasColumnName("ticket_id");

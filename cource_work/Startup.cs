@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using cource_work.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models;
+using IApplicationLifetime = Microsoft.AspNetCore.Hosting.IApplicationLifetime;
+using cource_work.Services;
 
 namespace cource_work
 {
@@ -23,7 +25,6 @@ namespace cource_work
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("connectingString");
@@ -31,8 +32,7 @@ namespace cource_work
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -41,7 +41,6 @@ namespace cource_work
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -51,7 +50,7 @@ namespace cource_work
 
             app.UseAuthorization();
 
-            app.UseMiddleware<WorkPreparatorMiddleware>(Configuration.GetConnectionString("connectingString"));
+            //app.UseMiddleware<WorkPreparatorMiddleware>(Configuration.GetConnectionString("connectingString"));
 
             app.UseEndpoints(endpoints =>
             {
@@ -59,6 +58,15 @@ namespace cource_work
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            lifetime.ApplicationStarted.Register(new WorkPreparator(Configuration.GetConnectionString("connectingString")).createJourneysAndCashAmount);
+            lifetime.ApplicationStopping.Register(new WorkEnder(Configuration.GetConnectionString("connectingString")).collectTransactions);
         }
+
+        
+
+        
     }
+
+    
 }

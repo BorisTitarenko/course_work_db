@@ -8,29 +8,32 @@ using System.Threading.Tasks;
 
 namespace cource_work.Models
 {
-    public class WorkPreparatorMiddleware
+    public class WorkPreparator
     {
-        private readonly RequestDelegate _next;
         private String _connection;
 
-        public WorkPreparatorMiddleware(RequestDelegate next, String connection)
+        public WorkPreparator(String connection)
         {
-            this._next = next;
             _connection = connection;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async void createJourneysAndCashAmount()
         {
             using (SqlConnection con = new SqlConnection(_connection))
             {
+                con.Open();
                 using (SqlCommand command = new SqlCommand("createJourneysForToday", con))
                 {
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    con.Open();
                     command.ExecuteScalar();
                 }
+                using (SqlCommand command = new SqlCommand("createDayCashAmountOnStartUp", con))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.ExecuteScalar();
+                }
+
             }
-            await _next.Invoke(context);
         }
     }
 }
