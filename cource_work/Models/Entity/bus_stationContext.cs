@@ -60,21 +60,31 @@ namespace cource_work.Models.Entity
                     .HasColumnName("end_perion")
                     .HasColumnType("date");
 
-                entity.Property(e => e.InsuranceAmount).HasColumnName("insurance_amount");
+                entity.Property(e => e.InsuranceAmount)
+                .HasColumnName("insurance_amount")
+                .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Nds).HasColumnName("nds");
+                entity.Property(e => e.PDV).HasColumnName("pdv")
+                .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.SalaryAmount).HasColumnName("salary_amount");
+                entity.Property(e => e.PP).HasColumnName("pp")
+                .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.ServiceAmount).HasColumnName("service_amount");
+                entity.Property(e => e.SalaryAmount).HasColumnName("salary_amount")
+                .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.ServiceAmount).HasColumnName("service_amount")
+                .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.StartPerion)
                     .HasColumnName("start_perion")
                     .HasColumnType("date");
 
-                entity.Property(e => e.TicketAmount).HasColumnName("ticket_amount");
+                entity.Property(e => e.TicketAmount).HasColumnName("ticket_amount")
+                .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.TransportationAmount).HasColumnName("transportation_amount");
+                entity.Property(e => e.TransportationAmount).HasColumnName("transportation_amount")
+                .HasColumnType("decimal(18, 2)");
             });
 
             modelBuilder.Entity<Broute>(entity =>

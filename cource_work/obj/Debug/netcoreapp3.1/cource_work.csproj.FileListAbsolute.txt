@@ -181,3 +181,8 @@ E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\Nancy
 E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\Nancy.Authentication.Forms.dll
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\cource_work.csproj.CoreCompileInputs.cache
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\cource_work.MvcApplicationPartsAssemblyInfo.cache
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Accountings\Delete.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Accountings\Details.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Accountings\Edit.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Accountings\Index.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Accountings\New.cshtml.g.cs

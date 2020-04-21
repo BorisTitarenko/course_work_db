@@ -1,0 +1,50 @@
+﻿@model cource_work.Models.Entity.Accounting
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Accounting</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="New">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="TransportationAmount" hidden class="form-control" value=0 />
+
+            <input asp-for="SalaryAmount" hidden class="form-control" value=0 />
+
+            <input asp-for="ServiceAmount" hidden class="form-control" value=0 />
+
+            <input asp-for="PDV" hidden class="form-control" value=0 />
+
+            <input asp-for="PP" hidden class="form-control" value=0 />
+
+            <input asp-for="InsuranceAmount" hidden class="form-control" value=0 />
+
+            <input asp-for="TicketAmount" hidden class="form-control" value=0 />
+
+            <div class="form-group">
+                <label asp-for="StartPerion" class="control-label">Початок кварталу</label>
+                <input asp-for="StartPerion" type="date" class="form-control" />
+                <span asp-validation-for="StartPerion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndPerion" class="control-label">Кінець кварталу</label>
+                <input asp-for="EndPerion" type="date" class="form-control" />
+                <span asp-validation-for="EndPerion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

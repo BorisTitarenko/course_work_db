@@ -1,0 +1,66 @@
+﻿@model cource_work.Models.Entity.Accounting
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Accounting</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AccId" />
+            <div class="form-group">
+                <label asp-for="TransportationAmount" class="control-label"></label>
+                <input asp-for="TransportationAmount" class="form-control" />
+                <span asp-validation-for="TransportationAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaryAmount" class="control-label"></label>
+                <input asp-for="SalaryAmount" class="form-control" />
+                <span asp-validation-for="SalaryAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceAmount" class="control-label"></label>
+                <input asp-for="ServiceAmount" class="form-control" />
+                <span asp-validation-for="ServiceAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PDV" class="control-label"></label>
+                <input asp-for="PDV" class="form-control" />
+                <span asp-validation-for="PDV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InsuranceAmount" class="control-label"></label>
+                <input asp-for="InsuranceAmount" class="form-control" />
+                <span asp-validation-for="InsuranceAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketAmount" class="control-label"></label>
+                <input asp-for="TicketAmount" class="form-control" />
+                <span asp-validation-for="TicketAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartPerion" class="control-label"></label>
+                <input asp-for="StartPerion" class="form-control" />
+                <span asp-validation-for="StartPerion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndPerion" class="control-label"></label>
+                <input asp-for="EndPerion" class="form-control" />
+                <span asp-validation-for="EndPerion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

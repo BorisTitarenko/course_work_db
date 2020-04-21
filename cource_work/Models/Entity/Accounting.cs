@@ -13,12 +13,13 @@ namespace cource_work.Models.Entity
         }
 
         public int AccId { get; set; }
-        public double TransportationAmount { get; set; }
-        public double SalaryAmount { get; set; }
-        public double ServiceAmount { get; set; }
-        public double Nds { get; set; }
-        public double InsuranceAmount { get; set; }
-        public double TicketAmount { get; set; }
+        public decimal TransportationAmount { get; set; }
+        public decimal SalaryAmount { get; set; }
+        public decimal ServiceAmount { get; set; }
+        public decimal PDV { get; set; }
+        public decimal? PP { get; set; }
+        public decimal InsuranceAmount { get; set; }
+        public decimal TicketAmount { get; set; }
         public DateTime? StartPerion { get; set; }
         public DateTime? EndPerion { get; set; }
 
