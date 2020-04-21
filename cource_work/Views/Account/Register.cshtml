@@ -13,22 +13,27 @@
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
+                <label class="control-label">Логін</label>
                 <input asp-for="Login" class="form-control" />
                 <span asp-validation-for="Login" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label class="control-label">Пароль</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <label class="control-label">Підтвердіть пароль</label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class ="form-control" asp-items="ViewBag.RoleId"></select>
+                <label class="control-label">Працівник</label>
+                <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Роль</label>
+                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Зареєструвати" class="btn btn-primary" />

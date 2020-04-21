@@ -38,8 +38,9 @@ namespace cource_work.Controllers
                 Euser user = await _context.Euser.FirstOrDefaultAsync(u => u.EuserLogin == model.Login);
                 if (user == null)
                 {
-                    user = new Euser { 
-                        EuserLogin = model.Login, 
+                    user = new Euser
+                    {
+                        EuserLogin = model.Login,
                         EuserPassword = model.Password,
                         RoleId = model.RoleId,
                         EmployeeId = model.EmployeeId
@@ -48,12 +49,11 @@ namespace cource_work.Controllers
                     _context.Euser.Add(user);
                     await _context.SaveChangesAsync();
 
-                    await Authenticate(user);
 
                     return RedirectToAction("Index", "Home");
                 }
                 else
-                    ModelState.AddModelError("", "Шось не так");
+                    RedirectToAction("Register");
             }
             return View(model);
         }

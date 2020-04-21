@@ -364,8 +364,8 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Euser)
-                    .HasForeignKey(d => d.EmployeeId)
+                    .WithOne(p => p.Euser)
+                    .HasForeignKey<Euser>(d => d.EmployeeId)
                     .HasConstraintName("FK__EUser__employee___2EA5EC27");
 
                 entity.HasOne(d => d.Role)
