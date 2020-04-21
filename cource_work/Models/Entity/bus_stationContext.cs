@@ -31,6 +31,7 @@ namespace cource_work.Models.Entity
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
         public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
+        public virtual DbSet<Salary> Salary { get; set; }
         public virtual DbSet<StationPlatform> StationPlatform { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TransportationCosts> TransportationCosts { get; set; }
@@ -303,8 +304,6 @@ namespace cource_work.Models.Entity
             {
                 entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
 
-                entity.Property(e => e.AccountingId).HasColumnName("accounting_id");
-
                 entity.Property(e => e.EmployeeName)
                     .IsRequired()
                     .HasColumnName("employee_name")
@@ -322,8 +321,6 @@ namespace cource_work.Models.Entity
                     .HasMaxLength(13)
                     .IsUnicode(false);
 
-                entity.Property(e => e.EmployeeSalary).HasColumnName("employee_salary");
-
                 entity.Property(e => e.EmployeeWorkBook)
                     .HasColumnName("employee_work_book")
                     .HasMaxLength(20)
@@ -333,12 +330,6 @@ namespace cource_work.Models.Entity
                     .HasColumnName("employer_shift")
                     .HasMaxLength(5)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.Accounting)
-                    .WithMany(p => p.Employee)
-                    .HasForeignKey(d => d.AccountingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Employer__accoun__47DBAE45");
             });
 
             modelBuilder.Entity<Euser>(entity =>
@@ -514,6 +505,31 @@ namespace cource_work.Models.Entity
                     .HasConstraintName("FK__RouteRout__rp_id__74794A92");
             });
 
+            modelBuilder.Entity<Salary>(entity =>
+            {
+                entity.Property(e => e.SalaryId).HasColumnName("salary_id");
+
+                entity.Property(e => e.AccId).HasColumnName("acc_id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+
+                entity.Property(e => e.EmployeeSalary)
+                    .HasColumnName("employee_salary")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.HasOne(d => d.Acc)
+                    .WithMany(p => p.Salary)
+                    .HasForeignKey(d => d.AccId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Salary__acc_id__336AA144");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Salary)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Salary__employee__32767D0B");
+            });
+
             modelBuilder.Entity<StationPlatform>(entity =>
             {
                 entity.HasKey(e => e.SpId)
@@ -583,8 +599,6 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.JourneyId).HasColumnName("journey_id");
 
                 entity.Property(e => e.MechanicCosts).HasColumnName("mechanic_costs");
-
-                entity.Property(e => e.Taxes).HasColumnName("taxes");
 
                 entity.HasOne(d => d.Accounting)
                     .WithMany(p => p.TransportationCosts)

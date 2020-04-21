@@ -7,20 +7,19 @@ namespace cource_work.Models.Entity
     {
         public Employee()
         {
+            Salary = new HashSet<Salary>();
             Vacation = new HashSet<Vacation>();
         }
 
         public int EmployeeId { get; set; }
-        public int AccountingId { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeePassport { get; set; }
         public string EmployeeWorkBook { get; set; }
         public string EmployerShift { get; set; }
-        public double EmployeeSalary { get; set; }
         public string EmployeePhone { get; set; }
 
-        public virtual Accounting Accounting { get; set; }
         public virtual Euser Euser { get; set; }
+        public virtual ICollection<Salary> Salary { get; set; }
         public virtual ICollection<Vacation> Vacation { get; set; }
     }
 }

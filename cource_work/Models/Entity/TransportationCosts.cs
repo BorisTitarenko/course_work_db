@@ -11,7 +11,6 @@ namespace cource_work.Models.Entity
         public double CarrierComCost { get; set; }
         public double FuelCosts { get; set; }
         public double MechanicCosts { get; set; }
-        public double Taxes { get; set; }
 
         public virtual Accounting Accounting { get; set; }
         public virtual Journey Journey { get; set; }

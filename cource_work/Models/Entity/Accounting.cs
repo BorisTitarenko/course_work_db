@@ -8,7 +8,7 @@ namespace cource_work.Models.Entity
         public Accounting()
         {
             DayCashAmount = new HashSet<DayCashAmount>();
-            Employee = new HashSet<Employee>();
+            Salary = new HashSet<Salary>();
             TransportationCosts = new HashSet<TransportationCosts>();
         }
 
@@ -23,7 +23,7 @@ namespace cource_work.Models.Entity
         public DateTime? EndPerion { get; set; }
 
         public virtual ICollection<DayCashAmount> DayCashAmount { get; set; }
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<Salary> Salary { get; set; }
         public virtual ICollection<TransportationCosts> TransportationCosts { get; set; }
     }
 }
