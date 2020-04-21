@@ -174,5 +174,10 @@ E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Details.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Tickets\Index.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\AjaxControlToolkit.dll
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
+E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\Nancy.dll
+E:\NULP\6\kursova\version1\cource_work\cource_work\bin\Debug\netcoreapp3.1\Nancy.Authentication.Forms.dll
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\cource_work.csproj.CoreCompileInputs.cache
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\cource_work.MvcApplicationPartsAssemblyInfo.cache

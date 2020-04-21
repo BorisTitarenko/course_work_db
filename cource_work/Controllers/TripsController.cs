@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
@@ -19,6 +20,12 @@ namespace cource_work.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin")]
+        public void test() {
+            Console.WriteLine("fjfjfjfjfjjfjfjffj");
+        }
+
+        [Authorize(Roles = "kkk")]
         public async Task<IActionResult> Index()
         {
             var bus_stationContext = _context.Trip

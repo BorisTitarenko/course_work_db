@@ -34,7 +34,9 @@ namespace cource_work
                .AddCookie(options => 
                 {
                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-               });
+                   options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+            services.AddAuthorization();
             services.AddControllersWithViews();
         }
 
@@ -54,8 +56,8 @@ namespace cource_work
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
             //app.UseMiddleware<WorkPreparatorMiddleware>(Configuration.GetConnectionString("connectingString"));
 
             app.UseEndpoints(endpoints =>
