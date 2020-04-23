@@ -1,0 +1,49 @@
+﻿@model List<TransportationCosts>
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Заповніть дані про витрати</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @for (int i = 0; i < Model.Count; ++i)
+            {
+                <input type="hidden" value=@Model[i].CsId   asp-for="@Model[i].CsId" />
+                <div class="form-group">
+                    <div>
+                        <label class="control-label">Період</label>
+                        <input asp-for=@Model[i].AccountingId value=@Model[i].AccountingId class="form-control" />
+                    </div>
+                    <div>
+                        <label class="control-label">Рейс</label>
+                        <input asp-for=@Model[i].JourneyId value=@Model[i].JourneyId readonly class="form-control" />
+                    </div>
+                    <div>
+                        <label class="control-label">Плата за оренду</label>
+                        <input asp-for=@Model[i].CarrierComCost class="form-control" />
+                        <span asp-validation-for=@Model[i].CarrierComCost class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="control-label">Витрати на паливо</label>
+                        <input asp-for=@Model[i].FuelCosts class="form-control" />
+                        <span asp-validation-for=@Model[i].FuelCosts class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="control-label">Інше</label>
+                        <input asp-for=@Model[i].Inssurance class="form-control" />
+                        <span asp-validation-for=@Model[i].Inssurance class="text-danger"></span>
+                    </div>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Підтвердити" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

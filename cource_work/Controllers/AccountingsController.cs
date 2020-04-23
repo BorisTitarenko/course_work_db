@@ -24,8 +24,8 @@ namespace cource_work.Controllers
             return View(await _context.Accounting.ToListAsync());
         }
 
-        // GET: Accountings/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Accountings/Report/5
+        public async Task<IActionResult> Report(int? id)
         {
             if (id == null)
             {
@@ -65,6 +65,12 @@ namespace cource_work.Controllers
             return View(accounting);
         }
 
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Report(int id) {
+            return View();
+        }
+
         // GET: Accountings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,9 +87,8 @@ namespace cource_work.Controllers
             return View(accounting);
         }
 
-        // POST: Accountings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccId,TransportationAmount,SalaryAmount,ServiceAmount,Nds,InsuranceAmount,TicketAmount,StartPerion,EndPerion")] Accounting accounting)

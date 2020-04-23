@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace cource_work.Models.Entity
 {
@@ -18,9 +19,12 @@ namespace cource_work.Models.Entity
         public decimal ServiceAmount { get; set; }
         public decimal PDV { get; set; }
         public decimal? PP { get; set; }
-        public decimal InsuranceAmount { get; set; }
         public decimal TicketAmount { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? StartPerion { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? EndPerion { get; set; }
 
         public virtual ICollection<DayCashAmount> DayCashAmount { get; set; }

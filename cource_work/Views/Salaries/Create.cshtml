@@ -1,0 +1,39 @@
+﻿@model List<Salary>
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Заповніть дані про витрати</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @for (int i = 0; i < Model.Count; ++i)
+            {
+                <input type="hidden" value=@Model[i].SalaryId asp-for="@Model[i].SalaryId" />
+                <div class="form-group">
+                    <div>
+                        <label class="control-label">Період</label>
+                        <select asp-for=@Model[i].AccId value=@Model[i].AccId disabled asp-items="ViewBag.AccountingPeriod" class="form-control"> </select>
+                    </div>
+                    <div>
+                        <label class="control-label">Працівник</label>
+                        <select asp-for=@Model[i].EmployeeId value=@Model[i].EmployeeId disabled asp-items="ViewBag.EmployeeId" class="form-control"></select>
+                    </div>
+                    <div>
+                        <label class="control-label">Зарплата</label>
+                        <input asp-for=@Model[i].EmployeeSalary class="form-control" />
+                        <span asp-validation-for=@Model[i].EmployeeSalary class="text-danger"></span>
+                    </div>
+                </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Підтвердити" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
