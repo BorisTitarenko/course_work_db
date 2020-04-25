@@ -31,7 +31,6 @@ namespace cource_work.Controllers
             var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
-                .Include(t => t.Journey.Driver)
                 .Include(t => t.Journey.Route)
                 .Where(j => j.DeportingDate.Value >= (DateTime.Today.Date));
             return View(await bus_stationContext.ToListAsync());
@@ -43,13 +42,10 @@ namespace cource_work.Controllers
             var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
-                .Include(t => t.Journey.Driver)
                 .Include(t => t.Journey.Route)
                 .Where(j => j.DeportingDate.Value.Equals(DateTime.Today.Date))
-                .Where(j => j.Journey.Driver.DriverName.ToLower().Contains(ss)
-                || j.Journey.Route.StartPoint.ToLower().Contains(ss)
+                .Where(j => j.Journey.Route.StartPoint.ToLower().Contains(ss)
                 || j.Journey.Route.EndPoint.ToLower().Contains(ss)
-                || j.Journey.Driver.DriverName.ToLower().Contains(ss)
                 || j.PassangersCount.ToString().Contains(ss)
                 || j.DeportingStat.ToLower().Contains(ss));
             return View("Index", await bus_stationContext.ToListAsync());
@@ -60,7 +56,6 @@ namespace cource_work.Controllers
             var bus_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
-                .Include(t => t.Journey.Driver)
                 .Include(t => t.Journey.Route)
                 .Where(j => j.DeportingDate.Value.Equals(date.Date));
             return View("Index", await bus_stationContext.ToListAsync());

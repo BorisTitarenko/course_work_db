@@ -17,11 +17,11 @@
                 <div class="form-group">
                     <div>
                         <label class="control-label">Період</label>
-                        <input asp-for=@Model[i].AccountingId value=@Model[i].AccountingId class="form-control" />
+                        <select asp-for=@Model[i].AccountingId value=@Model[i].AccountingId asp-items="ViewBag.AccountingPeriod" class="form-control"></select>
                     </div>
                     <div>
                         <label class="control-label">Рейс</label>
-                        <input asp-for=@Model[i].JourneyId value=@Model[i].JourneyId readonly class="form-control" />
+                        <select asp-for=@Model[i].JourneyId value=@Model[i].JourneyId asp-items="ViewBag.JourneyRoute" class="form-control"></select>
                     </div>
                     <div>
                         <label class="control-label">Плата за оренду</label>

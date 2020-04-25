@@ -16,7 +16,6 @@ namespace cource_work.Models.Entity
         public int AccId { get; set; }
         public decimal TransportationAmount { get; set; }
         public decimal SalaryAmount { get; set; }
-        public decimal ServiceAmount { get; set; }
         public decimal PDV { get; set; }
         public decimal? PP { get; set; }
         public decimal TicketAmount { get; set; }

@@ -17,7 +17,7 @@ namespace cource_work.Models
             _connection = connection;
         }
 
-        public async void createJourneysAndCashAmount()
+        public void createJourneysAndCashAmount()
         {
             using (SqlConnection con = new SqlConnection(_connection))
             {

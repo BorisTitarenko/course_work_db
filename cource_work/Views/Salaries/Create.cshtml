@@ -17,11 +17,11 @@
                 <div class="form-group">
                     <div>
                         <label class="control-label">Період</label>
-                        <select asp-for=@Model[i].AccId value=@Model[i].AccId disabled asp-items="ViewBag.AccountingPeriod" class="form-control"> </select>
+                        <select asp-for=@Model[i].AccId value=@Model[i].AccId  asp-items="ViewBag.AccountingPeriod" class="form-control"> </select>
                     </div>
                     <div>
                         <label class="control-label">Працівник</label>
-                        <select asp-for=@Model[i].EmployeeId value=@Model[i].EmployeeId disabled asp-items="ViewBag.EmployeeId" class="form-control"></select>
+                        <select asp-for=@Model[i].EmployeeId value=@Model[i].EmployeeId  asp-items="ViewBag.EmployeeId" class="form-control"></select>
                     </div>
                     <div>
                         <label class="control-label">Зарплата</label>

@@ -67,9 +67,7 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.SalaryAmount).HasColumnName("salary_amount")
                 .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.ServiceAmount).HasColumnName("service_amount")
-                .HasColumnType("decimal(18, 2)");
-
+                
                 entity.Property(e => e.StartPerion)
                     .HasColumnName("start_perion")
                     .HasColumnType("date");
@@ -348,8 +346,6 @@ namespace cource_work.Models.Entity
 
                 entity.Property(e => e.DeportingTime).HasColumnName("deporting_time");
 
-                entity.Property(e => e.DriverId).HasColumnName("driver_id");
-
                 entity.Property(e => e.EndTime).HasColumnName("end_time");
 
                 entity.Property(e => e.RouteId).HasColumnName("route_id");
@@ -361,11 +357,7 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.BusId)
                     .HasConstraintName("FK__BusDriver__bus_i__4222D4EF");
 
-                entity.HasOne(d => d.Driver)
-                    .WithMany(p => p.Journey)
-                    .HasForeignKey(d => d.DriverId)
-                    .HasConstraintName("FK__BusDriver__drive__412EB0B6");
-
+                
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.Journey)
                     .HasForeignKey(d => d.RouteId)

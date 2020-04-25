@@ -13,7 +13,6 @@ namespace cource_work.Models.Entity
         }
 
         public int JourneyId { get; set; }
-        public int DriverId { get; set; }
         public int BusId { get; set; }
         public int RouteId { get; set; }
         public TimeSpan? DeportingTime { get; set; }
@@ -23,7 +22,6 @@ namespace cource_work.Models.Entity
         public TimeSpan? EndTime { get; set; }
 
         public virtual Bus Bus { get; set; }
-        public virtual Driver Driver { get; set; }
         public virtual Broute Route { get; set; }
         public virtual ICollection<JourneyRoutePoint> JourneyRoutePoint { get; set; }
         public virtual ICollection<TransportationCosts> TransportationCosts { get; set; }

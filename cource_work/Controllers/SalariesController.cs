@@ -57,7 +57,7 @@ namespace cource_work.Controllers
                     _context.Salary.Find(s.SalaryId).EmployeeSalary = s.EmployeeSalary;
                 }
                 _context.SaveChanges();
-                return View("Accounting" );
+                return RedirectToAction("Report", "Accountings", new { id = salary[0].AccId});
             }
             return View(salary);
         }

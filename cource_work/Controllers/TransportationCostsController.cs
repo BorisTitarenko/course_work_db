@@ -33,7 +33,7 @@ namespace cource_work.Controllers
         {
             int lastAcc = _context.Accounting.ToList().Last().AccId;
             var items = _context.TransportationCosts.Where(t => t.AccountingId == lastAcc).ToList();
-           /*ViewData["AccountingPeriod"] = new SelectList(from a in _context.Accounting.ToList()
+           ViewData["AccountingPeriod"] = new SelectList(from a in _context.Accounting.ToList()
                                                           select new
                                                           {
                                                               Value = a.AccId,
@@ -45,7 +45,7 @@ namespace cource_work.Controllers
                                                        Value = j.JourneyId,
                                                        Text = j.Route.StartPoint + " - " + j.Route.EndPoint + " " + j.DeportingTime
                                                    }
-                                                   , "Value", "Text");*/
+                                                   , "Value", "Text");
             return View(items);
         }
 
@@ -65,7 +65,7 @@ namespace cource_work.Controllers
 
                 }
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "Salaries");
             }
             return View(transportationCosts);
         }

@@ -68,7 +68,7 @@ namespace cource_work
             });
 
             lifetime.ApplicationStarted.Register(new WorkPreparator(Configuration.GetConnectionString("connectingString")).createJourneysAndCashAmount);
-            lifetime.ApplicationStopping.Register(new WorkEnder(Configuration.GetConnectionString("connectingString")).collectTransactions);
+            lifetime.ApplicationStarted.Register(new WorkEnder(Configuration.GetConnectionString("connectingString")).collectTransactions);
         }
 
         
