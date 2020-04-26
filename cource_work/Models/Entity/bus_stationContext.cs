@@ -41,7 +41,7 @@ namespace cource_work.Models.Entity
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-AHJJ5GR\\MYDB;Initial catalog=bus_station;Integrated security=False;User Id=sa;Password=password;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-AHJJ5GR\\MYDB;Initial catalog=buz_station;Integrated security=False;User Id=huy;Password=huyhuy;MultipleActiveResultSets=True;");
             }
         }
 
@@ -58,25 +58,29 @@ namespace cource_work.Models.Entity
                     .HasColumnName("end_perion")
                     .HasColumnType("date");
 
-                entity.Property(e => e.PDV).HasColumnName("pdv")
-                .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.Pdv)
+                    .HasColumnName("pdv")
+                    .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.PP).HasColumnName("pp")
-                .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.Pp)
+                    .HasColumnName("pp")
+                    .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.SalaryAmount).HasColumnName("salary_amount")
-                .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.SalaryAmount)
+                    .HasColumnName("salary_amount")
+                    .HasColumnType("decimal(18, 2)");
 
-                
                 entity.Property(e => e.StartPerion)
                     .HasColumnName("start_perion")
                     .HasColumnType("date");
 
-                entity.Property(e => e.TicketAmount).HasColumnName("ticket_amount")
-                .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.TicketAmount)
+                    .HasColumnName("ticket_amount")
+                    .HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.TransportationAmount).HasColumnName("transportation_amount")
-                .HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.TransportationAmount)
+                    .HasColumnName("transportation_amount")
+                    .HasColumnType("decimal(18, 2)");
             });
 
             modelBuilder.Entity<Broute>(entity =>
@@ -186,7 +190,6 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.DcaId).HasColumnName("dca_id");
 
                 entity.Property(e => e.AccId).HasColumnName("acc_id");
-
 
                 entity.Property(e => e.LastTransactionTime).HasColumnName("last_transaction_time");
 
@@ -321,8 +324,8 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.HasOne(d => d.Employee)
-                    .WithOne(p => p.Euser)
-                    .HasForeignKey<Euser>(d => d.EmployeeId)
+                    .WithMany(p => p.Euser)
+                    .HasForeignKey(d => d.EmployeeId)
                     .HasConstraintName("FK__EUser__employee___2EA5EC27");
 
                 entity.HasOne(d => d.Role)
@@ -357,7 +360,6 @@ namespace cource_work.Models.Entity
                     .HasForeignKey(d => d.BusId)
                     .HasConstraintName("FK__BusDriver__bus_i__4222D4EF");
 
-                
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.Journey)
                     .HasForeignKey(d => d.RouteId)
@@ -553,19 +555,18 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.AccountingId).HasColumnName("accounting_id");
 
                 entity.Property(e => e.CarrierComCost)
-                .HasColumnName("carrier_com_cost")
-                .HasColumnType("decimal(18, 2)");
+                    .HasColumnName("carrier_com_cost")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.FuelCosts)
-                .HasColumnName("fuel_costs")
-                .HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.JourneyId)
-                .HasColumnName("journey_id");
+                    .HasColumnName("fuel_costs")
+                    .HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.Inssurance)
-                .HasColumnName("inssurance")
-                .HasColumnType("decimal(18, 2)");
+                    .HasColumnName("inssurance")
+                    .HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.JourneyId).HasColumnName("journey_id");
 
                 entity.HasOne(d => d.Accounting)
                     .WithMany(p => p.TransportationCosts)

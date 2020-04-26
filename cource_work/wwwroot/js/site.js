@@ -69,4 +69,32 @@ function getSeatAndPrice() {
     })
 }
 
+function getJourneys() {
+    $list = $("#journey_id");
+    $.ajax({
+        url: "/RoutePoints/getJourneys",
+        type: "GET",
+        data: { id: $("#route_id").val() },
+        traditional: true,
+        success: function (result) {
+            var items = "<option disabled selected>--- SELECT ---</option>"
+            $list.empty();
+            $.each(result, function (i, item) {
+                items += '<option value="' + item["value"] + '"> ' + item["text"] + ' </option>'
+            });
+            $list.html(items)
+        },
+        error: function () {
+            alert("Something went wrong call the police");
+
+        }
+
+    })
+}
+
+function enableInputs() {
+    $("#price").prop('disabled', false);
+    $("#arrivalTime").prop('disabled', false);
+}
+
 

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<cource_work.Models.Entity.CarrierCompany>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Назва
+            </th>
+            <th>
+                Адреса
+            </th>
+            <th>
+                Власник
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CcName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfficeAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CcOwner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CcPhone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CcId">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.CcId">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.CcId">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

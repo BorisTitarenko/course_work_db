@@ -7,6 +7,7 @@ namespace cource_work.Models.Entity
     {
         public Employee()
         {
+            Euser = new HashSet<Euser>();
             Salary = new HashSet<Salary>();
         }
 
@@ -17,7 +18,7 @@ namespace cource_work.Models.Entity
         public string EmployerShift { get; set; }
         public string EmployeePhone { get; set; }
 
-        public virtual Euser Euser { get; set; }
+        public virtual ICollection<Euser> Euser { get; set; }
         public virtual ICollection<Salary> Salary { get; set; }
     }
 }

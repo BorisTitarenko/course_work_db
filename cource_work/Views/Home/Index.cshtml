@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="row">
+        <div class="col-3">
+            <h3>Адміністрування</h3>
+            <hr />
+            <p>@Html.ActionLink("Перевізники", "Index", "CarrierCompanies")</p>
+            <p>@Html.ActionLink("Автобуси", "Index", "Buses")</p>
+            <p>@Html.ActionLink("Маршрути", "Index", "Broutes")</p>
+            <p>@Html.ActionLink("Водії", "Index", "Drivers")</p>
+            <p>@Html.ActionLink("Облікові записи", "Index", "Account")</p>
+        </div>
+
+        <div class="col-3">
+            <h3>Квитки</h3>
+            <hr />
+            <p>@Html.ActionLink("Продати", "Create", "Tickets", null)</p>
+            <p>@Html.ActionLink("Новий", "Index", "Tickets", null)</p>
+            <p>@Html.ActionLink("Пасажири", "Index", "Passengers", null)</p>
+        </div>
+
+        <div class="col-3">
+            <h3>Рейси</h3>
+            <hr />
+            <p>@Html.ActionLink("Розклад", "Index", "Trips", null)</p>
+            <p>@Html.ActionLink("Маршрути", "Index", "Broutes")</p>
+            <p>@Html.ActionLink("Зупинки", "Index", "RoutePoints")</p>
+
+        </div>
+        <div class="col-3">
+            <h3>Бухгалтерія</h3>
+            <hr/>
+            <p>@Html.ActionLink("Початок обліку", "New", "Accountings", null)</p>
+            <p>@Html.ActionLink("Скласти звіт", "Create", "TransportationCosts", null)</p>
+            <p>@Html.ActionLink("Працівники", "Index", "Employees", null)</p>
+            <p>@Html.ActionLink("Зарплати", "Index", "Salaries", null)</p>
+        </div>
+    </div>

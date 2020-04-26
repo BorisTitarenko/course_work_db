@@ -1,0 +1,95 @@
+﻿@model IEnumerable<cource_work.Models.Entity.Driver>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverBirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverLicence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverPassport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverIdenCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverEmpHistory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LikeShanson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverBirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverLicence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverPassport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverIdenCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverEmpHistory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverAdress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LikeShanson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cc.CcName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DriverId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DriverId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DriverId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

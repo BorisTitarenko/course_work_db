@@ -1,50 +1,56 @@
 ﻿@model cource_work.Models.Entity.Accounting
 
-@{
-    ViewData["Title"] = "Details";
-}
 
-<h1>Details</h1>
+<h1>Бухгалтерський звіт</h1>
 
 <div>
-    <h4>Accounting</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransportationAmount)
+        <dt class="col-sm-2">
+            Перевезення
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TransportationAmount)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SalaryAmount)
+        <dt class="col-sm-2">
+            Зарплати
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SalaryAmount)
         </dd>
-       
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TicketAmount)
+
+        <dt class="col-sm-2">
+            Квитків продано на
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TicketAmount)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartPerion)
+        <dt class="col-sm-2">
+            ПДВ
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pdv)
+        </dd>
+        <dt class="col-sm-2">
+            ПП
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pp)
+        </dd>
+        <dt class="col-sm-2">
+            Початок обліку
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StartPerion)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndPerion)
+        <dt class="col-sm-2">
+            Кінець обліку
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EndPerion)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.AccId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Повернутися до списку</a>
 </div>

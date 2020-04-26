@@ -1,0 +1,38 @@
+﻿@model IEnumerable<cource_work.Models.Entity.Euser>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Логін
+            </th>
+            <th>
+                Ім'я
+            </th>
+            <th>
+                Роль
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EuserLogin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.RoleName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EuserId">Редагувати</a> |
+                <a asp-action="Delete" asp-route-id="@item.EuserId">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

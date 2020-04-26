@@ -1,0 +1,38 @@
+﻿@model cource_work.Models.Entity.Broute
+
+
+
+<h1>Редагувати маршрут</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RouteId" />
+            <div class="form-group">
+                <label class="control-label">Початкова точка</label>
+                <input asp-for="StartPoint" class="form-control" />
+                <span asp-validation-for="StartPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Кінцева тока</label>
+                <input asp-for="EndPoint" class="form-control" />
+                <span asp-validation-for="EndPoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Довжина маршруту</label>
+                <input asp-for="RouteLength" class="form-control" />
+                <span asp-validation-for="RouteLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

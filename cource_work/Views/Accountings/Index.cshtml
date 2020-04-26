@@ -1,36 +1,32 @@
-﻿@model IEnumerable<cource_work.Models.Entity.Accounting>
+﻿@model IEnumerable<Accounting>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
+<h1>Всі звіти</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Новий</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TransportationAmount)
+                Перевезення
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SalaryAmount)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.PDV)
+                Зарплати
             </th>
             
             <th>
-                @Html.DisplayNameFor(model => model.TicketAmount)
+                ПДВ
+            </th>
+            
+            <th>
+                Продажі
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartPerion)
+                Поаток Обліку
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndPerion)
+                Кінець
             </th>
             <th></th>
         </tr>
@@ -46,7 +42,7 @@
             </td>
             
             <td>
-                @Html.DisplayFor(modelItem => item.PDV)
+                @Html.DisplayFor(modelItem => item.Pdv)
             </td>
            
             <td>
@@ -59,9 +55,7 @@
                 @Html.DisplayFor(modelItem => item.EndPerion)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AccId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AccId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AccId">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.AccId">Деталі</a> |
             </td>
         </tr>
 }

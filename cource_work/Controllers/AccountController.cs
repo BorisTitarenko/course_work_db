@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace cource_work.Controllers
 {
@@ -17,6 +18,14 @@ namespace cource_work.Controllers
         public AccountController(bus_stationContext context)
         {
             _context = context;
+        }
+
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public IActionResult Index() {
+            var accs = _context.Euser.Include(e => e.Role).Include(e => e.Employee).ToList();
+            return View(accs);
         }
 
         [Authorize(Roles = "admin")]
@@ -70,12 +79,13 @@ namespace cource_work.Controllers
         {
             if (ModelState.IsValid)
             {
-                Euser user = await _context.Euser
+                Euser user = await _context.Euser.Include(e => e.Employee)
                     .Include(u => u.Role)
                     .FirstOrDefaultAsync(u => u.EuserLogin == model.Login && u.EuserPassword == model.Password);
                 if (user != null)
                 {
-                    await Authenticate(user); // аутентификация
+                    await Authenticate(user);
+                    
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -85,7 +95,7 @@ namespace cource_work.Controllers
         }
         private async Task Authenticate(Euser user)
         {
-            // создаем один claim
+            
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.EuserLogin),
@@ -94,6 +104,13 @@ namespace cource_work.Controllers
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

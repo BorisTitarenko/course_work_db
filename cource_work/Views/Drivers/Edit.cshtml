@@ -1,0 +1,81 @@
+﻿@model cource_work.Models.Entity.Driver
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Driver</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DriverId" />
+            <div class="form-group">
+                <label asp-for="DriverSalary" class="control-label"></label>
+                <input asp-for="DriverSalary" class="form-control" />
+                <span asp-validation-for="DriverSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverBirthDate" class="control-label"></label>
+                <input asp-for="DriverBirthDate" class="form-control" />
+                <span asp-validation-for="DriverBirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverLicence" class="control-label"></label>
+                <input asp-for="DriverLicence" class="form-control" />
+                <span asp-validation-for="DriverLicence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverPassport" class="control-label"></label>
+                <input asp-for="DriverPassport" class="form-control" />
+                <span asp-validation-for="DriverPassport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverIdenCode" class="control-label"></label>
+                <input asp-for="DriverIdenCode" class="form-control" />
+                <span asp-validation-for="DriverIdenCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverEmpHistory" class="control-label"></label>
+                <input asp-for="DriverEmpHistory" class="form-control" />
+                <span asp-validation-for="DriverEmpHistory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverAdress" class="control-label"></label>
+                <input asp-for="DriverAdress" class="form-control" />
+                <span asp-validation-for="DriverAdress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverPhone" class="control-label"></label>
+                <input asp-for="DriverPhone" class="form-control" />
+                <span asp-validation-for="DriverPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="LikeShanson" /> @Html.DisplayNameFor(model => model.LikeShanson)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CcId" class="control-label"></label>
+                <select asp-for="CcId" class="form-control" asp-items="ViewBag.CcId"></select>
+                <span asp-validation-for="CcId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DriverName" class="control-label"></label>
+                <input asp-for="DriverName" class="form-control" />
+                <span asp-validation-for="DriverName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -5,11 +5,6 @@ namespace cource_work.Models.Entity
 {
     public partial class Driver
     {
-        public Driver()
-        {
-            Journey = new HashSet<Journey>();
-        }
-
         public int DriverId { get; set; }
         public double? DriverSalary { get; set; }
         public DateTime DriverBirthDate { get; set; }
@@ -24,6 +19,5 @@ namespace cource_work.Models.Entity
         public string DriverName { get; set; }
 
         public virtual CarrierCompany Cc { get; set; }
-        public virtual ICollection<Journey> Journey { get; set; }
     }
 }

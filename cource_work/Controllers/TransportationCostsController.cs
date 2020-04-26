@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Roles = "admin, accountant")]
     public class TransportationCostsController : Controller
     {
         private readonly bus_stationContext _context;
@@ -33,7 +35,8 @@ namespace cource_work.Controllers
         {
             int lastAcc = _context.Accounting.ToList().Last().AccId;
             var items = _context.TransportationCosts.Where(t => t.AccountingId == lastAcc).ToList();
-           ViewData["AccountingPeriod"] = new SelectList(from a in _context.Accounting.ToList()
+            ViewData["AccountingPeriod"] = new SelectList(from a in _context.Accounting.Where(a => a.AccId == lastAcc)
+                                                          .ToList()
                                                           select new
                                                           {
                                                               Value = a.AccId,
@@ -50,8 +53,6 @@ namespace cource_work.Controllers
         }
 
 
-
-       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(List<TransportationCosts> transportationCosts)
@@ -88,74 +89,8 @@ namespace cource_work.Controllers
             return View(transportationCosts);
         }
 
-        // POST: TransportationCosts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CsId,AccountingId,JourneyId,CarrierComCost,FuelCosts,MechanicCosts")] TransportationCosts transportationCosts)
-        {
-            if (id != transportationCosts.CsId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(transportationCosts);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransportationCostsExists(transportationCosts.CsId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AccountingId"] = new SelectList(_context.Accounting, "AccId", "AccId", transportationCosts.AccountingId);
-            ViewData["JourneyId"] = new SelectList(_context.Journey, "JourneyId", "JourneyId", transportationCosts.JourneyId);
-            return View(transportationCosts);
-        }
-
-        // GET: TransportationCosts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transportationCosts = await _context.TransportationCosts
-                .Include(t => t.Accounting)
-                .Include(t => t.Journey)
-                .FirstOrDefaultAsync(m => m.CsId == id);
-            if (transportationCosts == null)
-            {
-                return NotFound();
-            }
-
-            return View(transportationCosts);
-        }
-
-        // POST: TransportationCosts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var transportationCosts = await _context.TransportationCosts.FindAsync(id);
-            _context.TransportationCosts.Remove(transportationCosts);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+        
         private bool TransportationCostsExists(int id)
         {
             return _context.TransportationCosts.Any(e => e.CsId == id);

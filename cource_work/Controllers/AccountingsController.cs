@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
 using cource_work.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
@@ -30,6 +31,7 @@ namespace cource_work.Controllers
             return View(await _context.Accounting.ToListAsync());
         }
 
+        [Authorize(Roles = "admin, accountant")]
         // GET: Accountings/Report/5
         public async Task<IActionResult> Report(int? id)
         {
@@ -49,11 +51,14 @@ namespace cource_work.Controllers
         }
 
         // GET: Accountings/New
+        [Authorize(Roles= "admin, accountant")]
         public IActionResult New()
         {
             return View();
         }
 
+
+        [Authorize("admin, accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> New([Bind("AccId,StartPerion,EndPerion")] Accounting accounting)
@@ -77,86 +82,6 @@ namespace cource_work.Controllers
                 .calculate(id);
         }
 
-
-
-        // GET: Accountings/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var accounting = await _context.Accounting.FindAsync(id);
-            if (accounting == null)
-            {
-                return NotFound();
-            }
-            return View(accounting);
-        }
-
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AccId,TransportationAmount,SalaryAmount,ServiceAmount,Nds,InsuranceAmount,TicketAmount,StartPerion,EndPerion")] Accounting accounting)
-        {
-            if (id != accounting.AccId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(accounting);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AccountingExists(accounting.AccId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(accounting);
-        }
-
-        // GET: Accountings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var accounting = await _context.Accounting
-                .FirstOrDefaultAsync(m => m.AccId == id);
-            if (accounting == null)
-            {
-                return NotFound();
-            }
-
-            return View(accounting);
-        }
-
-        // POST: Accountings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var accounting = await _context.Accounting.FindAsync(id);
-            _context.Accounting.Remove(accounting);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
         private bool AccountingExists(int id)
         {

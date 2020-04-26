@@ -1,0 +1,41 @@
+﻿@model cource_work.Models.Entity.Passenger
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Passenger</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PassengerId" />
+            <div class="form-group">
+                <label asp-for="PassengerName" class="control-label"></label>
+                <input asp-for="PassengerName" class="form-control" />
+                <span asp-validation-for="PassengerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassengerAge" class="control-label"></label>
+                <input asp-for="PassengerAge" class="form-control" />
+                <span asp-validation-for="PassengerAge" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Preferential" /> @Html.DisplayNameFor(model => model.Preferential)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

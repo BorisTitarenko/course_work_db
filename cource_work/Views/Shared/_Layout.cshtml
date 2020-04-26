@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - cource_work</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -11,13 +10,18 @@
     <header>
         <nav class="navbar navbar-light navbar-expand-md shadow">
             <div class="container-fluid">
-                @Html.ActionLink((String)@ViewData["Title"], "Index", "Home", null)
+                @Html.ActionLink("Головна", "Index", "Home", null)
                 <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
                 <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link active" href="#">@ViewData["employeeName"]</a></li>
+                        <li class="nav-item dropdown" role="presentation">
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Акаунт</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Вийти", "Logout", "Account", null, new { @class = "dropdown-item"})
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -31,7 +35,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - cource_work - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 Борис Титаренко, ПЗ-35
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

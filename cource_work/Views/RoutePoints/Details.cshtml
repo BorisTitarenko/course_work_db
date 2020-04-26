@@ -1,0 +1,30 @@
+﻿@model cource_work.Models.Entity.RoutePoint
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RoutePoint</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StopName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StopName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RpId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

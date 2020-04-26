@@ -16,15 +16,14 @@ namespace cource_work.Models.Entity
         public int AccId { get; set; }
         public decimal TransportationAmount { get; set; }
         public decimal SalaryAmount { get; set; }
-        public decimal PDV { get; set; }
-        public decimal? PP { get; set; }
+        public decimal Pdv { get; set; }
         public decimal TicketAmount { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? StartPerion { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndPerion { get; set; }
+        public decimal? Pp { get; set; }
 
         public virtual ICollection<DayCashAmount> DayCashAmount { get; set; }
         public virtual ICollection<Salary> Salary { get; set; }

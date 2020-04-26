@@ -20,12 +20,7 @@ namespace cource_work.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "admin")]
-        public void test() {
-            Console.WriteLine("fjfjfjfjfjjfjfjffj");
-        }
-
-        [Authorize(Roles = "kkk")]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var bus_stationContext = _context.Trip
@@ -79,7 +74,7 @@ namespace cource_work.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TripId,PassangersCount,DispatcherId,JourneyId,DeportingStat,DeportingDate")] Trip trip)
+        public async Task<IActionResult> Edit(int id, [Bind("TripId,PassangersCount,JourneyId,DeportingStat,DeportingDate")] Trip trip)
         {
             if (id != trip.TripId){
                 return NotFound();

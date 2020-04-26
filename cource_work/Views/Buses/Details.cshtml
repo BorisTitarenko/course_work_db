@@ -11,25 +11,25 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BusModel)
+            Модель
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.BusModel)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SitingNumber)
+            Місць
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SitingNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClimateControl)
+            Клімат контроль
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ClimateControl)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cc)
+            Перевізник
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cc.CcName)
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.BusId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.BusId">Редагувати</a> |
+    <a asp-action="Index">Повернутися до списку</a>
 </div>
