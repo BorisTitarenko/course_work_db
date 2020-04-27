@@ -29,15 +29,26 @@ namespace cource_work
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("connectingString");
-            services.AddDbContext<bus_stationContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<buz_stationContext>(options => options.UseSqlServer(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie(options => 
                 {
                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
-            services.AddAuthorization();
+
             services.AddControllersWithViews();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AccountingPolicy", policy =>
+                       policy.RequireRole("admin", "accountant"));
+                options.AddPolicy("DispatcherPolicy", policy =>
+                       policy.RequireRole("admin", "dispatcher"));
+                options.AddPolicy("CashierPolicy", policy =>
+                       policy.RequireRole("admin", "cashier"));
+                options.AddPolicy("AdminPolicy", policy =>
+                       policy.RequireRole("admin", "cashier"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApplicationLifetime lifetime)
@@ -58,7 +69,6 @@ namespace cource_work
 
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseMiddleware<WorkPreparatorMiddleware>(Configuration.GetConnectionString("connectingString"));
 
             app.UseEndpoints(endpoints =>
             {

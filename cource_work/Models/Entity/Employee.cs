@@ -15,7 +15,6 @@ namespace cource_work.Models.Entity
         public string EmployeeName { get; set; }
         public string EmployeePassport { get; set; }
         public string EmployeeWorkBook { get; set; }
-        public string EmployerShift { get; set; }
         public string EmployeePhone { get; set; }
 
         public virtual ICollection<Euser> Euser { get; set; }

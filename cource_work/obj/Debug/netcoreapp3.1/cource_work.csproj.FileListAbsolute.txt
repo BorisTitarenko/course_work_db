@@ -224,3 +224,8 @@ E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\RoutePoints\Details.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\RoutePoints\Edit.cshtml.g.cs
 E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\RoutePoints\Index.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Journeys\Create.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Journeys\Delete.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Journeys\Details.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Journeys\Edit.cshtml.g.cs
+E:\NULP\6\kursova\version1\cource_work\cource_work\obj\Debug\netcoreapp3.1\Razor\Views\Journeys\Index.cshtml.g.cs

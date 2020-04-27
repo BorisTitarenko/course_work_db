@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class BusesController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public BusesController(bus_stationContext context)
+        public BusesController(buz_stationContext context)
         {
             _context = context;
         }
@@ -21,8 +23,8 @@ namespace cource_work.Controllers
         // GET: Buses
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Bus.Include(b => b.Cc);
-            return View(await bus_stationContext.ToListAsync());
+            var buz_stationContext = _context.Bus.Include(b => b.Cc);
+            return View(await buz_stationContext.ToListAsync());
         }
 
         // GET: Buses/Details/5

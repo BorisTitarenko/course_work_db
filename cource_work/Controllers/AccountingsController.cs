@@ -12,15 +12,16 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "AccountingPolicy")]
     public class AccountingsController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
         private IConfigurationRoot configuration = new ConfigurationBuilder()
            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
            .AddJsonFile("appsettings.json")
            .Build();
 
-        public AccountingsController(bus_stationContext context)
+        public AccountingsController(buz_stationContext context)
         {
             _context = context;
         }
@@ -31,7 +32,8 @@ namespace cource_work.Controllers
             return View(await _context.Accounting.ToListAsync());
         }
 
-        [Authorize(Roles = "admin, accountant")]
+
+
         // GET: Accountings/Report/5
         public async Task<IActionResult> Report(int? id)
         {
@@ -51,27 +53,25 @@ namespace cource_work.Controllers
         }
 
         // GET: Accountings/New
-        [Authorize(Roles= "admin, accountant")]
         public IActionResult New()
         {
             return View();
         }
 
 
-        [Authorize("admin, accountant")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> New([Bind("AccId,StartPerion,EndPerion")] Accounting accounting)
         {
             if (ModelState.IsValid)
             {
-                Accounting last = _context.Accounting.ToList().Last();
-                if (last.EndPerion > accounting.EndPerion) {
+                Accounting last = _context.Accounting.DefaultIfEmpty().ToList()?.Last();
+                if (last?.EndPerion > accounting.EndPerion) {
                     return View(accounting);
                 }
                 _context.Add(accounting);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "TransportationCosts");
+                return RedirectToAction("Index", "Home");
             }
             return View(accounting);
         }

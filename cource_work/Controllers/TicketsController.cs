@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
 using Microsoft.CodeAnalysis;
 using cource_work.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
@@ -16,12 +17,14 @@ namespace cource_work.Controllers
         public int Max { get; set; }
         public double Price { get; set; }
     }
+
+
+    [Authorize(Policy = "CashierPolicy")]
     public class TicketsController : Controller
     {
-        private readonly bus_stationContext _context;
-        private int ndsPersents = 20;
+        private readonly buz_stationContext _context;
 
-        public TicketsController(bus_stationContext context)
+        public TicketsController(buz_stationContext context)
         {
             _context = context;
         }
@@ -29,9 +32,67 @@ namespace cource_work.Controllers
         // GET: Tickets
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Ticket.Include(t => t.Ct).Include(t => t.Passenger).Include(t => t.Trip);
-            return View(await bus_stationContext.ToListAsync());
+            var result = _context.Ticket
+                .Include(t => t.Rp)
+                .Include(t => t.Ct)
+                .Include(t => t.Trip)
+                .Select(t => new TicketViewModel
+                {
+                    TicketId = t.TicketId,
+                    City = t.Rp.CityName,
+                    TicketPrice = (decimal)_context.JourneyRoutePoint.First(r => r.RpId == t.RpId).TicketPrice,
+                    DepartureDate = (DateTime)t.Trip.DeportingDate,
+                    PaimentTime = t.Ct.PayTime
+
+                }).ToListAsync();
+
+            return View(await result);
         }
+
+
+        //GET: Tickets/Search
+        public async Task<IActionResult> Search(string ss)
+        {
+            var result = _context.Ticket
+                .Include(t => t.Rp)
+                .Include(t => t.Ct)
+                .Include(t => t.Trip)
+                .Where(t => t.Passenger.PassengerName.Contains(ss)
+                || t.Rp.CityName.Contains(ss)
+                || t.Ct.PayTime.ToString().Contains(ss)).
+                Select(t => new TicketViewModel {
+                    TicketId = t.TicketId,
+                    City = t.Rp.CityName,
+                    TicketPrice = (decimal)_context.JourneyRoutePoint.First(r => r.RpId == t.RpId).TicketPrice,
+                    DepartureDate = (DateTime)t.Trip.DeportingDate,
+                    PaimentTime = t.Ct.PayTime
+
+        }).ToListAsync();
+                
+            return View("Index", result);
+        }
+
+
+        //GET: Tickets/Date
+        public async Task<IActionResult> Date(DateTime date)
+        {
+            var result = _context.Ticket
+                .Include(t => t.Rp)
+                .Include(t => t.Ct)
+                .Include(t => t.Trip)
+                .Where(t => t.Trip.DeportingDate == date)
+                .Select(t => new TicketViewModel
+                {
+                    TicketId = t.TicketId,
+                    City = t.Rp.CityName,
+                    TicketPrice = (decimal)_context.JourneyRoutePoint.First(r => r.RpId == t.RpId).TicketPrice,
+                    DepartureDate = (DateTime)t.Trip.DeportingDate,
+                    PaimentTime = t.Ct.PayTime
+                }).ToListAsync();
+
+            return View("Index", result);
+        }
+
 
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,23 +104,36 @@ namespace cource_work.Controllers
 
             var ticket = await _context.Ticket
                 .Include(t => t.Ct)
-                .Include(t => t.Passenger)
+                .Include(t => t.Rp)
                 .Include(t => t.Trip)
+                .Include(t => t.Passenger)
+                .Include(t => t.Trip.Journey)
+                .Include(t => t.Trip.Journey.Route)
                 .FirstOrDefaultAsync(m => m.TicketId == id);
             if (ticket == null)
             {
                 return NotFound();
             }
 
-            return View(ticket);
+            var ticketView = new TicketViewModel
+            {
+                TicketId = ticket.TicketId,
+                City = ticket.Rp.CityName,
+                TicketPrice = (decimal)_context.JourneyRoutePoint.First(r => r.RpId == ticket.RpId).TicketPrice,
+                DepartureDate = (DateTime)ticket.Trip.DeportingDate,
+                PaimentTime = ticket.Ct.PayTime,
+                RouteName = ticket.Trip.Journey.Route.StartPoint + " - " + ticket.Trip.Journey.Route.EndPoint,
+                PassengerName = ticket.Passenger.PassengerName
+            };
+            ticketView.Pdv = ticketView.TicketPrice * (decimal)0.18;
+
+            return View(ticketView);
         }
 
 
 
         // GET: Tickets/getRoutePointsFromTrip
         public JsonResult getRoutePointsFromTrip(int id) {
-
-
             var rp = _context.JourneyRoutePoint.Include(jrp => jrp.Journey)
                 .Include(jpr => jpr.Journey.Trip)
                 .Include(jpr => jpr.Rp)

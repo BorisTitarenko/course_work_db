@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "CashierPolicy")]
     public class PassengersController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public PassengersController(bus_stationContext context)
+        public PassengersController(buz_stationContext context)
         {
             _context = context;
         }

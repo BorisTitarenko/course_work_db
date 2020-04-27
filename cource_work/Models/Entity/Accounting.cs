@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace cource_work.Models.Entity
 {
@@ -18,10 +17,7 @@ namespace cource_work.Models.Entity
         public decimal SalaryAmount { get; set; }
         public decimal Pdv { get; set; }
         public decimal TicketAmount { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? StartPerion { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndPerion { get; set; }
         public decimal? Pp { get; set; }
 

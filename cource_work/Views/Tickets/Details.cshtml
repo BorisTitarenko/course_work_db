@@ -1,40 +1,57 @@
-﻿@model cource_work.Models.Entity.Ticket
+﻿@model TicketViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
 
-<h1>Details</h1>
+<h1>Квиток</h1>
 
 <div>
-    <h4>Ticket</h4>
     <hr />
     <dl class="row">
-        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Seat)
+
+        <dt class="col-sm-2">
+            Місто
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seat)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ct)
+        <dt class="col-sm-2">
+            Маршрут
         </dt>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Passenger)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Passenger.PassengerName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RouteName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Trip)
+        <dt class="col-sm-2">
+            Дата відправлення
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trip.DeportingStat)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartureDate)
         </dd>
+        <dt class="col-sm-2">
+            Дата купівлі
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaimentTime)
+        </dd>
+        <dt class="col-sm-2">
+            Ціна
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TicketPrice)
+        </dd>
+        <dt class="col-sm-2">
+            ПДВ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pdv)
+        </dd>
+        <dt class="col-sm-2">
+            Пасажир
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PassengerName)
+        </dd>
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TicketId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">До списку</a>
 </div>

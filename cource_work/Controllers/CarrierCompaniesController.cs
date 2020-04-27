@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class CarrierCompaniesController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public CarrierCompaniesController(bus_stationContext context)
+        public CarrierCompaniesController(buz_stationContext context)
         {
             _context = context;
         }

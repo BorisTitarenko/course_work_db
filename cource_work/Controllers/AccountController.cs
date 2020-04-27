@@ -14,21 +14,21 @@ namespace cource_work.Controllers
 {
     public class AccountController : Controller
     {
-        private bus_stationContext _context;
-        public AccountController(bus_stationContext context)
+        private buz_stationContext _context;
+        public AccountController(buz_stationContext context)
         {
             _context = context;
         }
 
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Policy = "AdminPolicy")]
         [HttpGet]
         public IActionResult Index() {
             var accs = _context.Euser.Include(e => e.Role).Include(e => e.Employee).ToList();
             return View(accs);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Policy = "AdminPolicy")]
         [HttpGet]
         public IActionResult Register()
         {

@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "DispatcherPolicy")]
     public class TripsController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public TripsController(bus_stationContext context)
+        public TripsController(buz_stationContext context)
         {
             _context = context;
         }
@@ -23,18 +24,18 @@ namespace cource_work.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Trip
+            var buz_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Route)
                 .Where(j => j.DeportingDate.Value >= (DateTime.Today.Date));
-            return View(await bus_stationContext.ToListAsync());
+            return View(await buz_stationContext.ToListAsync());
         }
 
         // GET: Trips/Search
         public async Task<IActionResult> Search(string ss = "PLANNED")
         {
-            var bus_stationContext = _context.Trip
+            var buz_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Route)
@@ -43,17 +44,17 @@ namespace cource_work.Controllers
                 || j.Journey.Route.EndPoint.ToLower().Contains(ss)
                 || j.PassangersCount.ToString().Contains(ss)
                 || j.DeportingStat.ToLower().Contains(ss));
-            return View("Index", await bus_stationContext.ToListAsync());
+            return View("Index", await buz_stationContext.ToListAsync());
         }
 
         public async Task<IActionResult> Date(DateTime date)
         {
-            var bus_stationContext = _context.Trip
+            var buz_stationContext = _context.Trip
                 .Include(t => t.Journey)
                 .Include(t => t.Journey.Bus)
                 .Include(t => t.Journey.Route)
                 .Where(j => j.DeportingDate.Value.Equals(date.Date));
-            return View("Index", await bus_stationContext.ToListAsync());
+            return View("Index", await buz_stationContext.ToListAsync());
         }
 
         // GET: Trips/Edit/5

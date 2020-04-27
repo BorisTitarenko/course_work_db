@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "AccountingPolicy")]
     public class SalariesController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public SalariesController(bus_stationContext context)
+        public SalariesController(buz_stationContext context)
         {
             _context = context;
         }
@@ -21,8 +23,8 @@ namespace cource_work.Controllers
         // GET: Salaries
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Salary.Include(s => s.Acc).Include(s => s.Employee);
-            return View(await bus_stationContext.ToListAsync());
+            var buz_stationContext = _context.Salary.Include(s => s.Acc).Include(s => s.Employee);
+            return View(await buz_stationContext.ToListAsync());
         }
 
        

@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
-    [Authorize(Roles = "admin, accountant")]
+    [Authorize(Policy = "AccountingPolicy")]
     public class TransportationCostsController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public TransportationCostsController(bus_stationContext context)
+        public TransportationCostsController(buz_stationContext context)
         {
             _context = context;
         }
@@ -23,9 +23,9 @@ namespace cource_work.Controllers
         // GET: TransportationCosts
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.TransportationCosts.Include(t => t.Accounting).Include(t => t.Journey)
+            var buz_stationContext = _context.TransportationCosts.Include(t => t.Accounting).Include(t => t.Journey)
                 .Where(t => t.AccountingId == _context.Accounting.ToList().Last().AccId);
-            return View(await bus_stationContext.ToListAsync());
+            return View(await buz_stationContext.ToListAsync());
         }
 
        

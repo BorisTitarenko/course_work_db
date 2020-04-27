@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
 using cource_work.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize]
     public class RoutePointsController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public RoutePointsController(bus_stationContext context)
+        public RoutePointsController(buz_stationContext context)
         {
             _context = context;
         }
@@ -43,6 +45,7 @@ namespace cource_work.Controllers
             return View(routePoint);
         }
 
+        [Authorize(Policy = "AdminPolicy")]
         // GET: RoutePoints/Create
         public IActionResult Create()
         {
@@ -70,8 +73,8 @@ namespace cource_work.Controllers
         }
 
 
-
         // POST: RoutePoints/Create
+        [Authorize(Policy = "AdminPolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RoutePointViewModel routePoint)
@@ -115,6 +118,7 @@ namespace cource_work.Controllers
 
 
         // GET: RoutePoints/Edit/5
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,9 +134,8 @@ namespace cource_work.Controllers
             return View(routePoint);
         }
 
-        // POST: RoutePoints/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Policy = "AdminPolicy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RpId,CityName,StopName")] RoutePoint routePoint)
@@ -166,6 +169,7 @@ namespace cource_work.Controllers
         }
 
         // GET: RoutePoints/Delete/5
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -184,6 +188,7 @@ namespace cource_work.Controllers
         }
 
         // POST: RoutePoints/Delete/5
+        [Authorize(Policy = "AdminPolicy")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

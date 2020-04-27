@@ -19,7 +19,8 @@
                         <li class="nav-item dropdown" role="presentation">
                             <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Акаунт</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @Html.ActionLink("Вийти", "Logout", "Account", null, new { @class = "dropdown-item"})
+                                @Html.ActionLink("Вийти", "Logout", "Account", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Ввійти", "Login", "Account", null, new { @class = "dropdown-item" })
                             </div>
                         </li>
                     </ul>

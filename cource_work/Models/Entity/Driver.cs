@@ -6,6 +6,7 @@ namespace cource_work.Models.Entity
     public partial class Driver
     {
         public int DriverId { get; set; }
+        public string DriverName { get; set; }
         public double? DriverSalary { get; set; }
         public DateTime DriverBirthDate { get; set; }
         public string DriverLicence { get; set; }
@@ -16,7 +17,6 @@ namespace cource_work.Models.Entity
         public string DriverPhone { get; set; }
         public bool LikeShanson { get; set; }
         public int? CcId { get; set; }
-        public string DriverName { get; set; }
 
         public virtual CarrierCompany Cc { get; set; }
     }

@@ -6,14 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cource_work.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cource_work.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class DriversController : Controller
     {
-        private readonly bus_stationContext _context;
+        private readonly buz_stationContext _context;
 
-        public DriversController(bus_stationContext context)
+        public DriversController(buz_stationContext context)
         {
             _context = context;
         }
@@ -21,8 +23,8 @@ namespace cource_work.Controllers
         // GET: Drivers
         public async Task<IActionResult> Index()
         {
-            var bus_stationContext = _context.Driver.Include(d => d.Cc);
-            return View(await bus_stationContext.ToListAsync());
+            var buz_stationContext = _context.Driver.Include(d => d.Cc);
+            return View(await buz_stationContext.ToListAsync());
         }
 
         // GET: Drivers/Details/5

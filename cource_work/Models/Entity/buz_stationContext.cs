@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace cource_work.Models.Entity
 {
-    public partial class bus_stationContext : DbContext
+    public partial class buz_stationContext : DbContext
     {
-        public bus_stationContext()
+        public buz_stationContext()
         {
         }
 
-        public bus_stationContext(DbContextOptions<bus_stationContext> options)
+        public buz_stationContext(DbContextOptions<buz_stationContext> options)
             : base(options)
         {
         }
@@ -31,7 +31,6 @@ namespace cource_work.Models.Entity
         public virtual DbSet<RoutePoint> RoutePoint { get; set; }
         public virtual DbSet<RouteRoutePoint> RouteRoutePoint { get; set; }
         public virtual DbSet<Salary> Salary { get; set; }
-        public virtual DbSet<StationPlatform> StationPlatform { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TransportationCosts> TransportationCosts { get; set; }
         public virtual DbSet<Trip> Trip { get; set; }
@@ -50,7 +49,7 @@ namespace cource_work.Models.Entity
             modelBuilder.Entity<Accounting>(entity =>
             {
                 entity.HasKey(e => e.AccId)
-                    .HasName("PK__Accounti__9A20D554440116CC");
+                    .HasName("PK__Accounti__9A20D554708C0479");
 
                 entity.Property(e => e.AccId).HasColumnName("acc_id");
 
@@ -86,7 +85,7 @@ namespace cource_work.Models.Entity
             modelBuilder.Entity<Broute>(entity =>
             {
                 entity.HasKey(e => e.RouteId)
-                    .HasName("PK__BRoute__28F706FE23D5C88C");
+                    .HasName("PK__BRoute__28F706FE2C3EFAFD");
 
                 entity.ToTable("BRoute");
 
@@ -95,16 +94,14 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.EndPoint)
                     .IsRequired()
                     .HasColumnName("end_point")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.RouteLength).HasColumnName("route_length");
 
                 entity.Property(e => e.StartPoint)
                     .IsRequired()
                     .HasColumnName("start_point")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<Bus>(entity =>
@@ -114,8 +111,7 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.BusModel)
                     .IsRequired()
                     .HasColumnName("bus_model")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.CcId).HasColumnName("cc_id");
 
@@ -126,43 +122,43 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Cc)
                     .WithMany(p => p.Bus)
                     .HasForeignKey(d => d.CcId)
-                    .HasConstraintName("FK__Bus__cc_id__398D8EEE");
+                    .HasConstraintName("FK__Bus__cc_id__09A971A2");
             });
 
             modelBuilder.Entity<CarrierCompany>(entity =>
             {
                 entity.HasKey(e => e.CcId)
-                    .HasName("PK__CarrierC__9F1E187BE138E9CD");
+                    .HasName("PK__CarrierC__9F1E187BC1EDE395");
+
+                entity.HasIndex(e => e.CcName)
+                    .HasName("UQ__CarrierC__94C7136296D0CC63")
+                    .IsUnique();
 
                 entity.Property(e => e.CcId).HasColumnName("cc_id");
 
                 entity.Property(e => e.CcName)
                     .IsRequired()
                     .HasColumnName("cc_name")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.CcOwner)
                     .HasColumnName("cc_owner")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.CcPhone)
                     .IsRequired()
                     .HasColumnName("cc_phone")
-                    .HasMaxLength(14)
-                    .IsUnicode(false);
+                    .HasMaxLength(14);
 
                 entity.Property(e => e.OfficeAdress)
                     .HasColumnName("office_adress")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
             });
 
             modelBuilder.Entity<CashTransaction>(entity =>
             {
                 entity.HasKey(e => e.CtId)
-                    .HasName("PK__CashTran__33D47D0948A22B36");
+                    .HasName("PK__CashTran__33D47D09BE0978BB");
 
                 entity.Property(e => e.CtId).HasColumnName("ct_id");
 
@@ -179,13 +175,14 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Dca)
                     .WithMany(p => p.CashTransaction)
                     .HasForeignKey(d => d.DcaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__CashTrans__dca_i__66603565");
             });
 
             modelBuilder.Entity<DayCashAmount>(entity =>
             {
                 entity.HasKey(e => e.DcaId)
-                    .HasName("PK__DayCashA__3726447BE1228FDD");
+                    .HasName("PK__DayCashA__3726447B91C1DD3B");
 
                 entity.Property(e => e.DcaId).HasColumnName("dca_id");
 
@@ -210,6 +207,14 @@ namespace cource_work.Models.Entity
 
             modelBuilder.Entity<Driver>(entity =>
             {
+                entity.HasIndex(e => e.DriverLicence)
+                    .HasName("UQ__Driver__8BAB4049518AFBD4")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.DriverPassport)
+                    .HasName("UQ__Driver__57B10A90046E5AFB")
+                    .IsUnique();
+
                 entity.Property(e => e.DriverId).HasColumnName("driver_id");
 
                 entity.Property(e => e.CcId).HasColumnName("cc_id");
@@ -217,8 +222,7 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.DriverAdress)
                     .IsRequired()
                     .HasColumnName("driver_adress")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.DriverBirthDate)
                     .HasColumnName("driver_birth_date")
@@ -227,37 +231,31 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.DriverEmpHistory)
                     .IsRequired()
                     .HasColumnName("driver_emp_history")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.DriverIdenCode)
                     .IsRequired()
                     .HasColumnName("driver_iden_code")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.DriverLicence)
                     .IsRequired()
                     .HasColumnName("driver_licence")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.DriverName)
                     .HasColumnName("driver_name")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.DriverPassport)
                     .IsRequired()
                     .HasColumnName("driver_passport")
-                    .HasMaxLength(90)
-                    .IsUnicode(false);
+                    .HasMaxLength(90);
 
                 entity.Property(e => e.DriverPhone)
                     .IsRequired()
                     .HasColumnName("driver_phone")
-                    .HasMaxLength(14)
-                    .IsUnicode(false);
+                    .HasMaxLength(14);
 
                 entity.Property(e => e.DriverSalary).HasColumnName("driver_salary");
 
@@ -266,7 +264,7 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Cc)
                     .WithMany(p => p.Driver)
                     .HasForeignKey(d => d.CcId)
-                    .HasConstraintName("FK__Driver__cc_id__3C69FB99");
+                    .HasConstraintName("FK__Driver__cc_id__0A9D95DB");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -276,29 +274,21 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.EmployeeName)
                     .IsRequired()
                     .HasColumnName("employee_name")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.EmployeePassport)
+                    .IsRequired()
                     .HasColumnName("employee_passport")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.EmployeePhone)
                     .IsRequired()
                     .HasColumnName("employee_phone")
-                    .HasMaxLength(13)
-                    .IsUnicode(false);
+                    .HasMaxLength(13);
 
                 entity.Property(e => e.EmployeeWorkBook)
                     .HasColumnName("employee_work_book")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.EmployerShift)
-                    .HasColumnName("employer_shift")
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<Euser>(entity =>
@@ -312,27 +302,25 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.EuserLogin)
                     .IsRequired()
                     .HasColumnName("euser_login")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.EuserPassword)
                     .IsRequired()
                     .HasColumnName("euser_password")
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Euser)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK__EUser__employee___2EA5EC27");
+                    .HasConstraintName("FK__EUser__employee___6477ECF3");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Euser)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EUser__role_id__2F9A1060");
+                    .HasConstraintName("FK__EUser__role_id__0C85DE4D");
             });
 
             modelBuilder.Entity<Journey>(entity =>
@@ -358,18 +346,18 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Bus)
                     .WithMany(p => p.Journey)
                     .HasForeignKey(d => d.BusId)
-                    .HasConstraintName("FK__BusDriver__bus_i__4222D4EF");
+                    .HasConstraintName("FK__Journey__bus_id__66603565");
 
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.Journey)
                     .HasForeignKey(d => d.RouteId)
-                    .HasConstraintName("FK__BusDriver__route__4316F928");
+                    .HasConstraintName("FK__Journey__route_i__6754599E");
             });
 
             modelBuilder.Entity<JourneyRoutePoint>(entity =>
             {
                 entity.HasKey(e => e.TrpId)
-                    .HasName("PK__JourneyR__51881C5ADB0471A4");
+                    .HasName("PK__JourneyR__51881C5A529EFE9D");
 
                 entity.Property(e => e.TrpId).HasColumnName("trp_id");
 
@@ -408,8 +396,7 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.PassengerName)
                     .IsRequired()
                     .HasColumnName("passenger_name")
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasMaxLength(40);
 
                 entity.Property(e => e.Preferential).HasColumnName("preferential");
             });
@@ -421,34 +408,31 @@ namespace cource_work.Models.Entity
                 entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasColumnName("role_name")
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(10);
             });
 
             modelBuilder.Entity<RoutePoint>(entity =>
             {
                 entity.HasKey(e => e.RpId)
-                    .HasName("PK__RoutePoi__CBB62532376C9659");
+                    .HasName("PK__RoutePoi__CBB62532F3F4A37E");
 
                 entity.Property(e => e.RpId).HasColumnName("rp_id");
 
                 entity.Property(e => e.CityName)
                     .IsRequired()
                     .HasColumnName("city_name")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
 
                 entity.Property(e => e.StopName)
                     .IsRequired()
                     .HasColumnName("stop_name")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .HasMaxLength(30);
             });
 
             modelBuilder.Entity<RouteRoutePoint>(entity =>
             {
                 entity.HasKey(e => e.RrpId)
-                    .HasName("PK__TicketRo__51881C5AF571C05A");
+                    .HasName("PK__RouteRou__3F7A7E5753085B89");
 
                 entity.Property(e => e.RrpId).HasColumnName("rrp_id");
 
@@ -459,12 +443,14 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Route)
                     .WithMany(p => p.RouteRoutePoint)
                     .HasForeignKey(d => d.RouteId)
-                    .HasConstraintName("FK__RouteRout__route__73852659");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RouteRout__route__0F624AF8");
 
                 entity.HasOne(d => d.Rp)
                     .WithMany(p => p.RouteRoutePoint)
                     .HasForeignKey(d => d.RpId)
-                    .HasConstraintName("FK__RouteRout__rp_id__74794A92");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RouteRout__rp_id__10566F31");
             });
 
             modelBuilder.Entity<Salary>(entity =>
@@ -489,22 +475,7 @@ namespace cource_work.Models.Entity
                     .WithMany(p => p.Salary)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Salary__employee__32767D0B");
-            });
-
-            modelBuilder.Entity<StationPlatform>(entity =>
-            {
-                entity.HasKey(e => e.SpId)
-                    .HasName("PK__StationP__4C367CEEDB307028");
-
-                entity.Property(e => e.SpId).HasColumnName("sp_id");
-
-                entity.Property(e => e.SpNumber).HasColumnName("sp_number");
-
-                entity.Property(e => e.WorldPart)
-                    .HasColumnName("world_part")
-                    .HasMaxLength(6)
-                    .IsUnicode(false);
+                    .HasConstraintName("FK__Salary__employee__114A936A");
             });
 
             modelBuilder.Entity<Ticket>(entity =>
@@ -548,7 +519,7 @@ namespace cource_work.Models.Entity
             modelBuilder.Entity<TransportationCosts>(entity =>
             {
                 entity.HasKey(e => e.CsId)
-                    .HasName("PK__Transpor__138C55F4CB7B27FB");
+                    .HasName("PK__Transpor__138C55F4DFAAF755");
 
                 entity.Property(e => e.CsId).HasColumnName("cs_id");
 
@@ -592,7 +563,6 @@ namespace cource_work.Models.Entity
                     .IsRequired()
                     .HasColumnName("deporting_stat")
                     .HasMaxLength(10)
-                    .IsUnicode(false)
                     .HasDefaultValueSql("('PLANNED')");
 
                 entity.Property(e => e.JourneyId).HasColumnName("journey_id");
@@ -602,7 +572,7 @@ namespace cource_work.Models.Entity
                 entity.HasOne(d => d.Journey)
                     .WithMany(p => p.Trip)
                     .HasForeignKey(d => d.JourneyId)
-                    .HasConstraintName("FK__Journey__bdr_id__282DF8C2");
+                    .HasConstraintName("FK__Trip__journey_id__73BA3083");
             });
 
             OnModelCreatingPartial(modelBuilder);
